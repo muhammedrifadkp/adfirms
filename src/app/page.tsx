@@ -826,9 +826,9 @@ export default function Home() {
             <Image
               src="/black-logo.png"
               alt="Ad Firms"
-              width={230}
-              height={64}
-              style={{ filter: "brightness(0) invert(1)", opacity: 0.9, width: "auto", height: "64px" }}
+              width={270}
+              height={76}
+              style={{ filter: "brightness(0) invert(1)", opacity: 0.9, width: "auto", height: "76px" }}
             />
             <span className="nav-logo-text" style={{ display: "none" }}>Ad Firms</span>
           </a>
