@@ -48,20 +48,126 @@ function StatCounter({ target, suffix, duration = 1800 }: { target: number; suff
   );
 }
 
+const realReviews = [
+  {
+    name: "Steven George",
+    meta: "6 reviews · 1 photo · 7 months ago",
+    review: "I worked with Anu for setting up my business license, and she was excellent. I needed a few things done expediently, and Anu and the team were super responsive throughout the whole process. I plan on using them for more visa and business services.",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
+  },
+  {
+    name: "Neha Panwar",
+    meta: "2 reviews · 6 months ago",
+    review: "I have been working with Anu, and she has been incredibly supportive and consistently proactive in her work and approach. I highly recommend AD Firm Business Services.",
+    likes: "❤️ 2",
+    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
+  },
+  {
+    name: "Mukul Yadav",
+    meta: "5 reviews · 3 photos · 9 months ago",
+    review: "I had an excellent experience with AD Firms! A special thanks to Anu for her amazing support in making my visa process smooth and stress-free. She guided me at every step with great clarity and professionalism. Truly appreciate the help and highly recommend AD Firms for any documentation needs!",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Рустем Гатиятуллин",
+    meta: "Local Guide · 1 review · 7 photos · 4 months ago",
+    review: "Anu, thank you very much. Good job 👍",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
+  },
+  {
+    name: "Midhun Baby",
+    meta: "1 review · 9 months ago",
+    review: "Professional team from UAE. Excellent service with affordable charges. I had a great experience with them, especially the great support from Ms. Anu. I strongly recommend this team for anyone looking for high-quality service in the UAE. Thank you, team!",
+    likes: "❤️ 2",
+    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
+  },
+  {
+    name: "Nebil Kabeer",
+    meta: "6 reviews · 2 years ago",
+    review: "Very good experience. Excellent service — you guys did a great job.",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Fatuma Hassan",
+    meta: "2 reviews · 1 year ago",
+    review: "AD Businessmen Services is fantastic to work with — professional, reliable, and always delivering top-notch results. Highly recommended for anyone looking for quality and efficiency!",
+    likes: "❤️🙏 2",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Mohamed Nasith",
+    meta: "1 review · 1 year ago",
+    review: "We were very pleased with your service. I received my service much faster than expected. Very satisfying experience. Thank you very much, AD Businessmen Services ✨",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Mizba Thabasum",
+    meta: "1 review · 2 years ago",
+    review: "Extremely good service... Loved it!",
+    likes: "",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Baljit Kaur",
+    meta: "1 review · 2 years ago",
+    review: "Excellent and satisfying service at an affordable price. Fantastic service and supportive staff.",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Sharoon Shanu",
+    meta: "5 reviews · 2 years ago",
+    review: "Excellent and satisfying services at affordable prices. Very professional team as well. Thank you for your support.",
+    likes: "❤️ 1",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Kiran Raj",
+    meta: "6 reviews · 2 years ago",
+    review: "Thank you guys for the great service. Mr. Fahad was extremely helpful throughout the process. I coordinated with him for all the work. I will definitely refer all my friends to your business. Thank you again!",
+    likes: "🙏 1",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Ashish",
+    meta: "1 review · 2 years ago",
+    review: "Fantastic service and supportive staff.",
+    likes: "",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  }
+];
+
 export default function Home() {
   // Refs
   const formRef = useRef<HTMLDivElement>(null);
+  const reviewsStripRef = useRef<HTMLDivElement>(null);
+  const testimonialsScrollRef = useRef<HTMLDivElement>(null);
+  const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  const scrollTestimonials = (direction: "left" | "right") => {
+    const el = testimonialsScrollRef.current;
+    if (!el) return;
+    const scrollAmount = direction === "left" ? -400 : 400;
+    el.scrollBy({ left: scrollAmount, behavior: "smooth" });
+  };
 
   // States
   const [fname, setFname] = useState("");
+  const [isUserInteracting, setIsUserInteracting] = useState(false);
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+91 ");
   const [pkg, setPkg] = useState("");
   const [visas, setVisas] = useState("");
   const [activity, setActivity] = useState("");
   const [timeline, setTimeline] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [currentPkgIndex, setCurrentPkgIndex] = useState(1); // Default to Free Zone Plus (index 1) since it's most popular
 
@@ -169,9 +275,77 @@ export default function Home() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Reviews dynamic horizontal ticker scroll with touch drag-to-pause
+  const startInteraction = () => {
+    setIsUserInteracting(true);
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+  };
+
+  const endInteraction = () => {
+    if (interactionTimeoutRef.current) {
+      clearTimeout(interactionTimeoutRef.current);
+    }
+    interactionTimeoutRef.current = setTimeout(() => {
+      setIsUserInteracting(false);
+    }, 3000); // Resume auto scroll after 3 seconds of inactivity
+  };
+
+  useEffect(() => {
+    const el = reviewsStripRef.current;
+    if (!el) return;
+
+    let animationFrameId: number;
+    let speed = 0.8; // Butter-smooth sliding speed per frame ticker
+
+    const autoScrollReviews = () => {
+      if (!isUserInteracting) {
+        el.scrollLeft += speed;
+
+        // Seamless infinite loop trigger
+        const halfWidth = el.scrollWidth / 2;
+        if (halfWidth > 0 && el.scrollLeft >= halfWidth) {
+          el.scrollLeft = el.scrollLeft - halfWidth;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScrollReviews);
+    };
+
+    animationFrameId = requestAnimationFrame(autoScrollReviews);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      if (interactionTimeoutRef.current) {
+        clearTimeout(interactionTimeoutRef.current);
+      }
+    };
+  }, [isUserInteracting]);
+
+  // Lock body scroll when mobile modal is active
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isModalOpen]);
+
   // Scroll handler
   const scrollToForm = () => {
     formRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Unified click handler to open mobile modal or scroll to desktop form
+  const handleEnquireClick = (e?: React.MouseEvent) => {
+    if (e) e.preventDefault();
+    if (window.innerWidth < 1024) {
+      setIsModalOpen(true);
+    } else {
+      scrollToForm();
+    }
   };
 
   // Form submit handler
@@ -195,7 +369,7 @@ export default function Home() {
     <>
       {/* TOPBAR */}
       <div className={`topbar ${isScrolled ? "scrolled-hide" : ""}`}>
-        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+971504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+971 504 486 285</a>
+        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+91504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+91 504 486 285</a>
       </div>
 
       {/* NAV */}
@@ -239,30 +413,30 @@ export default function Home() {
 
           {/* Desktop Navigation Right */}
           <div className="nav-right">
-            <a href="tel:+971504486285" className="nav-phone-pill">
+            <a href="tel:+91504486285" className="nav-phone-pill">
               <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
-              +971 504 486 285
+              +91 504 486 285
             </a>
             <div className="nav-flag-link">
               <span className="nav-flag">🇦🇪</span>
               <span>Careers</span>
             </div>
-            <a href="#lead-form" onClick={(e) => { e.preventDefault(); scrollToForm(); }} className="nav-login">
+            <a href="#lead-form" onClick={handleEnquireClick} className="nav-login">
               Login
             </a>
           </div>
 
           {/* Mobile Navigation Controls */}
           <div className="mobile-nav-controls">
-            <button className="btn-mobile-quote" onClick={scrollToForm}>Get a Quote</button>
-            <a href="tel:+971504486285" className="mobile-phone-icon">
+            <button className="btn-mobile-quote" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
+            <a href="tel:+91504486285" className="mobile-phone-icon">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
             </a>
-            <button className="mobile-hamburger" onClick={scrollToForm}>
+            <button className="mobile-hamburger" onClick={handleEnquireClick} suppressHydrationWarning>
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                 <line x1="3" y1="12" x2="21" y2="12" />
                 <line x1="3" y1="6" x2="21" y2="6" />
@@ -331,13 +505,21 @@ export default function Home() {
 
             {/* Mobile View CTA Button */}
             <div className="hero-mobile-cta">
-              <button className="submit-btn-pill" onClick={scrollToForm}>
+              <button className="submit-btn-pill" onClick={handleEnquireClick} suppressHydrationWarning>
                 Enquire Now
               </button>
             </div>
 
             {/* Bottom Reviews strip */}
-            <div className="reviews-strip">
+            <div 
+              ref={reviewsStripRef}
+              className="reviews-strip"
+              onTouchStart={startInteraction}
+              onTouchEnd={endInteraction}
+              onMouseDown={startInteraction}
+              onMouseUp={endInteraction}
+            >
+              {/* Set 1 */}
               <div className="review-item">
                 <div className="review-logo google">
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
@@ -377,6 +559,47 @@ export default function Home() {
                   </span>
                 </div>
               </div>
+
+              {/* Set 2 (Duplicate for Seamless Infinite Marquee Loop) */}
+              <div className="review-item duplicate-review">
+                <div className="review-logo google">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.53-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-8.72z" fill="#4285F4"/>
+                    <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.15C3.18 21.88 7.39 24 12 24z" fill="#34A853"/>
+                    <path d="M5.32 14.24A7.16 7.16 0 0 1 4.91 12c0-.79.13-1.57.37-2.32V6.53H1.21A11.94 11.94 0 0 0 0 12c0 1.92.45 3.74 1.21 5.47l4.11-3.23z" fill="#FBBC05"/>
+                    <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.39 0 3.18 2.12 1.21 6.53l4.11 3.23c.94-2.85 3.57-4.96 6.68-4.96z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <div className="review-text">
+                  <span className="review-title">3,000+ Reviews</span>
+                  <span className="review-subtitle">
+                    4.8/5 Rating
+                    <span className="review-stars">★★★★★</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="review-item duplicate-review">
+                <div className="review-logo orange-star">★</div>
+                <div className="review-text">
+                  <span className="review-title">600+ Reviews</span>
+                  <span className="review-subtitle">
+                    4.9/5 Rating
+                    <span className="review-stars">★★★★★</span>
+                  </span>
+                </div>
+              </div>
+
+              <div className="review-item duplicate-review">
+                <div className="review-logo green-star">★</div>
+                <div className="review-text">
+                  <span className="review-title">500+ Reviews</span>
+                  <span className="review-subtitle">
+                    4.7/5 Rating
+                    <span className="review-stars green">★★★★★</span>
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -393,35 +616,23 @@ export default function Home() {
 
               {!submitted ? (
                 <form className="form-body" onSubmit={handleFormSubmit}>
-                  <div className="frow">
-                    <div className="fgrp">
-                      <label htmlFor="fname">First Name</label>
-                      <input
-                        type="text"
-                        id="fname"
-                        placeholder="John"
-                        value={fname}
-                        onChange={(e) => setFname(e.target.value)}
-                        required
-                      />
-                    </div>
-                    <div className="fgrp">
-                      <label htmlFor="lname">Last Name</label>
-                      <input
-                        type="text"
-                        id="lname"
-                        placeholder="Smith"
-                        value={lname}
-                        onChange={(e) => setLname(e.target.value)}
-                      />
-                    </div>
+                  <div className="fgrp">
+                    <label htmlFor="fname">Full Name</label>
+                    <input
+                      type="text"
+                      id="fname"
+                      placeholder="Full name"
+                      value={fname}
+                      onChange={(e) => setFname(e.target.value)}
+                      required
+                    />
                   </div>
                   <div className="fgrp">
                     <label htmlFor="femail">Email Address</label>
                     <input
                       type="email"
                       id="femail"
-                      placeholder="john@email.com"
+                      placeholder="E-mail"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
@@ -432,7 +643,7 @@ export default function Home() {
                     <input
                       type="tel"
                       id="fphone"
-                      placeholder="+971 50 000 0000"
+                      placeholder="+91 Your phone"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       required
@@ -454,53 +665,24 @@ export default function Home() {
                       <option value="Not sure – Need advice">Not sure – Need advice</option>
                     </select>
                   </div>
-                  <div className="fgrp select-wrapper">
-                    <label htmlFor="fvisas">Number of Visas Required</label>
-                    <select
-                      id="fvisas"
-                      value={visas}
-                      onChange={(e) => setVisas(e.target.value)}
-                    >
-                      <option value="">Select...</option>
-                      <option value="0 Visa">0 Visa</option>
-                      <option value="1 Visa">1 Visa</option>
-                      <option value="2 Visas">2 Visas</option>
-                      <option value="3 Visas">3 Visas</option>
-                      <option value="4+ Visas">4+ Visas</option>
-                    </select>
-                  </div>
                   <div className="fgrp">
-                    <label htmlFor="factivity">Business Activity</label>
-                    <input
-                      type="text"
+                    <label htmlFor="factivity">Your enquiry</label>
+                    <textarea
                       id="factivity"
-                      placeholder="e.g. Trading, Consulting, Technology"
+                      placeholder="Your enquiry"
                       value={activity}
                       onChange={(e) => setActivity(e.target.value)}
                     />
                   </div>
-                  <div className="fgrp select-wrapper">
-                    <label htmlFor="ftimeline">When are you looking to setup?</label>
-                    <select
-                      id="ftimeline"
-                      value={timeline}
-                      onChange={(e) => setTimeline(e.target.value)}
-                    >
-                      <option value="">Select timeline...</option>
-                      <option value="Immediately">Immediately</option>
-                      <option value="Within a month">Within a month</option>
-                      <option value="After 1 month">After 1 month</option>
-                    </select>
-                  </div>
-                  <button type="submit" className="submit-btn">
-                    Get Free Quote &rarr;
+                  <button type="submit" className="submit-btn" suppressHydrationWarning>
+                    Get a Free Quote &rarr;
                   </button>
                   <div className="form-privacy">
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <rect x="3" y="11" width="18" height="11" rx="2" />
                       <path d="M7 11V7a5 5 0 0110 0v4" />
                     </svg>
-                    100% secure. Your data is never shared.
+                    We will handle your personal data in compliance with our Privacy Policy.
                   </div>
                 </form>
               ) : (
@@ -510,7 +692,7 @@ export default function Home() {
                   <p style={{ color: "#4a5568", fontSize: "14px", lineHeight: "1.6", margin: "8px 0 20px" }}>
                     Our setup advisor will call you within <strong>30 minutes</strong>. Look out for a WhatsApp message too.
                   </p>
-                  <a href="https://wa.me/971504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/91504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "6px" }}>
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -524,41 +706,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* TRUST BAR */}
-      <div className="trust-bar">
-        <div className="trust-bar-inner">
-          <div className="tb-item">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            Free Zone & Mainland Setup
-          </div>
-          <div className="tb-item">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            Transparent Pricing & Fast Processing
-          </div>
-          <div className="tb-item">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            Dedicated Business Setup Consultant
-          </div>
-          <div className="tb-item">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            UAE Visa & Banking Assistance
-          </div>
-          <div className="tb-item">
-            <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
-              <polyline points="20 6 9 17 4 12" />
-            </svg>
-            End-to-End Documentation Support
-          </div>
-        </div>
-      </div>
+
 
       {/* PACKAGES */}
       <div className="packages-bg">
@@ -584,7 +732,7 @@ export default function Home() {
                   <li><span className="pkg-check">✓</span> Dedicated Setup Consultant</li>
                 </ul>
                 <div className="pkg-price">Starting From <strong>AED 4,888</strong></div>
-                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
               </div>
 
               {/* Free Zone Plus */}
@@ -603,7 +751,7 @@ export default function Home() {
                   <li><span className="pkg-check">✓</span> Bank Account Assistance</li>
                 </ul>
                 <div className="pkg-price">Starting From <strong>AED 11,500</strong></div>
-                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
               </div>
 
               {/* Free Zone Premium */}
@@ -621,7 +769,7 @@ export default function Home() {
                   <li><span className="pkg-check">✓</span> Dedicated Account Manager</li>
                 </ul>
                 <div className="pkg-price">Starting From <strong>AED 14,900</strong></div>
-                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
               </div>
             </div>
 
@@ -643,7 +791,7 @@ export default function Home() {
                   <li><span className="pkg-check">✓</span> Dedicated Senior Business Setup Advisor</li>
                 </ul>
                 <div className="pkg-price">Starting From <strong>AED 18,500</strong></div>
-                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
               </div>
 
               {/* Offshore */}
@@ -661,7 +809,7 @@ export default function Home() {
                   <li><span className="pkg-check">✓</span> International Business Structuring Assistance</li>
                 </ul>
                 <div className="pkg-price">Starting From <strong>AED 8,500</strong></div>
-                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
               </div>
             </div>
           </div>
@@ -676,6 +824,7 @@ export default function Home() {
                 className="carousel-arrow-inside prev" 
                 onClick={() => setCurrentPkgIndex((prev) => (prev === 0 ? packagesList.length - 1 : prev - 1))}
                 aria-label="Previous Package"
+                suppressHydrationWarning
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="15 18 9 12 15 6" />
@@ -687,6 +836,7 @@ export default function Home() {
                 className="carousel-arrow-inside next" 
                 onClick={() => setCurrentPkgIndex((prev) => (prev === packagesList.length - 1 ? 0 : prev + 1))}
                 aria-label="Next Package"
+                suppressHydrationWarning
               >
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <polyline points="9 18 15 12 9 6" />
@@ -697,7 +847,7 @@ export default function Home() {
                 <div className="logo-main">
                   <span className="logo-chevron">&gt;&gt;</span>
                 </div>
-                <button className="btn-mobile-quote" onClick={scrollToForm}>Get a Quote</button>
+                <button className="btn-mobile-quote" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
               </div>
               
               <div className="pkg-name">
@@ -725,7 +875,8 @@ export default function Home() {
               
               <button 
                 className="pkg-cta-mobile" 
-                onClick={scrollToForm}
+                onClick={handleEnquireClick}
+                suppressHydrationWarning
               >
                 Enquire Now
               </button>
@@ -739,6 +890,7 @@ export default function Home() {
                   className={`carousel-dot ${currentPkgIndex === idx ? "active" : ""}`}
                   onClick={() => setCurrentPkgIndex(idx)}
                   aria-label={`Go to slide ${idx + 1}`}
+                  suppressHydrationWarning
                 />
               ))}
             </div>
@@ -747,43 +899,91 @@ export default function Home() {
       </div>
 
       {/* CLIENT TESTIMONIALS */}
-      <section className="section">
-        <div className="sec-tag">Client Testimonials</div>
-        <h2 className="sec-h2">What Our Clients Say</h2>
-        <p className="sec-sub">Trusted by entrepreneurs, investors, and startups across the globe for UAE business setup.</p>
-        <div className="testi-grid">
-          <div className="testi-card">
-            <div className="testi-stars">★★★★★</div>
-            <p className="testi-quote">&quot;Setting up my consulting firm with Ad Firms was incredibly fast and smooth. Their advisor explained all Free Zone options clearly, helped open my corporate bank account, and got my license in under 24 hours. Highly recommended!&quot;</p>
-            <div className="testi-author">
-              <div className="testi-av">A</div>
-              <div>
-                <div className="testi-name">Amit Sharma</div>
-                <div className="testi-location">Tech Consulting, India</div>
-              </div>
-            </div>
+      <section className="section" style={{ paddingBottom: "80px" }}>
+        <div className="sec-header-row">
+          <div>
+            <div className="sec-tag">Client Testimonials</div>
+            <h2 className="sec-h2" style={{ marginBottom: "8px" }}>What Our Clients Say</h2>
+            <p className="sec-sub" style={{ margin: "0", maxWidth: "600px" }}>
+              Real reviews from real entrepreneurs who established their businesses in the UAE with Ad Firms.
+            </p>
           </div>
-          <div className="testi-card">
-            <div className="testi-stars">★★★★★</div>
-            <p className="testi-quote">&quot;Outstanding service from start to finish! The transparent pricing made planning easy, and the dedicated manager handled all visas and establishment card registrations without any delays. Dubai company setup was seamless.&quot;</p>
-            <div className="testi-author">
-              <div className="testi-av">B</div>
-              <div>
-                <div className="testi-name">Sarah Jenkins</div>
-                <div className="testi-location">E-commerce, UK</div>
-              </div>
-            </div>
+          <div className="carousel-nav-btns">
+            <button className="carousel-nav-btn prev" onClick={() => scrollTestimonials("left")} aria-label="Previous review" suppressHydrationWarning>
+              ←
+            </button>
+            <button className="carousel-nav-btn next" onClick={() => scrollTestimonials("right")} aria-label="Next review" suppressHydrationWarning>
+              →
+            </button>
           </div>
-          <div className="testi-card">
-            <div className="testi-stars">★★★★★</div>
-            <p className="testi-quote">&quot;I was unsure whether to go with Mainland or Free Zone, but Ad Firms guided me based on my market needs. Excellent support for corporate tax registration and tenancy contract processing. Extremely professional team.&quot;</p>
-            <div className="testi-author">
-              <div className="testi-av">C</div>
-              <div>
-                <div className="testi-name">Rahul Nair</div>
-                <div className="testi-location">Trading House, UAE</div>
+        </div>
+
+        <div className="testi-carousel-wrapper">
+          <div className="testi-carousel" ref={testimonialsScrollRef}>
+            {realReviews.map((item, idx) => (
+              <a 
+                key={idx} 
+                href="https://www.google.com/search?client=ms-android-samsung-rvo1&sca_esv=4b1cc901675f4231&cs=1&hl=en-IN&sxsrf=ANbL-n6FfvuhNx1qF2JmgtPHuaLjG7YpBQ:1779993599977&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOaT7B33ZQ1Qnbt7T2PN6GJj--OD3cfkGnvZKOUyc5tALt_ruf8LvHs-ans7-y_h4fHPvkwhHXXZSMXQ0vf7KQo_dju8O1vXs_B0W6hYfYOB2vnB0Zw%3D%3D&q=AD+Firms+Business+Services+Reviews&sa=X&ved=2ahUKEwifnerx0NyUAxXbYOsIHY4pAU8Q0bkNegQIIxAH&biw=1229&bih=584&dpr=1.56"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="testi-card"
+              >
+                <div className="testi-card-top">
+                  <div className="testi-stars">★★★★★</div>
+                  <div className="testi-name">{item.name}</div>
+                  <div className="testi-meta">{item.meta}</div>
+                  <p className="testi-quote">"{item.review}"</p>
+                  
+                  {item.owner_reply && (
+                    <div className="testi-reply">
+                      <strong>Response from the owner</strong>
+                      <p>{item.owner_reply}</p>
+                    </div>
+                  )}
+                </div>
+
+                <div className="testi-google-badge">
+                  <div className="google-icon-svg">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.53-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-8.72z" fill="#4285F4"/>
+                      <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.15C3.18 21.88 7.39 24 12 24z" fill="#34A853"/>
+                      <path d="M5.32 14.24A7.16 7.16 0 0 1 4.91 12c0-.79.13-1.57.37-2.32V6.53H1.21A11.94 11.94 0 0 0 0 12c0 1.92.45 3.74 1.21 5.47l4.11-3.23z" fill="#FBBC05"/>
+                      <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.39 0 3.18 2.12 1.21 6.53l4.11 3.23c.94-2.85 3.57-4.96 6.68-4.96z" fill="#EA4335"/>
+                    </svg>
+                  </div>
+                  <div className="google-badge-text">
+                    <span className="line1">500+ Reviews</span>
+                    <span className="line2">
+                      4.7/5 Rating <span className="google-stars-small">★★★★★</span>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            ))}
+
+            {/* View All Verified Reviews Card */}
+            <a 
+              href="https://www.google.com/search?client=ms-android-samsung-rvo1&sca_esv=4b1cc901675f4231&cs=1&hl=en-IN&sxsrf=ANbL-n6FfvuhNx1qF2JmgtPHuaLjG7YpBQ:1779993599977&si=AL3DRZEsmMGCryMMFSHJ3StBhOdZ2-6yYkXd_doETEE1OR-qOaT7B33ZQ1Qnbt7T2PN6GJj--OD3cfkGnvZKOUyc5tALt_ruf8LvHs-ans7-y_h4fHPvkwhHXXZSMXQ0vf7KQo_dju8O1vXs_B0W6hYfYOB2vnB0Zw%3D%3D&q=AD+Firms+Business+Services+Reviews&sa=X&ved=2ahUKEwifnerx0NyUAxXbYOsIHY4pAU8Q0bkNegQIIxAH&biw=1229&bih=584&dpr=1.56" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              className="testi-card testi-card-viewall"
+            >
+              <div className="viewall-content">
+                <div className="viewall-google-icon">
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.53-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-8.72z" fill="#4285F4"/>
+                    <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.15C3.18 21.88 7.39 24 12 24z" fill="#34A853"/>
+                    <path d="M5.32 14.24A7.16 7.16 0 0 1 4.91 12c0-.79.13-1.57.37-2.32V6.53H1.21A11.94 11.94 0 0 0 0 12c0 1.92.45 3.74 1.21 5.47l4.11-3.23z" fill="#FBBC05"/>
+                    <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.39 0 3.18 2.12 1.21 6.53l4.11 3.23c.94-2.85 3.57-4.96 6.68-4.96z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <h3>View All Reviews</h3>
+                <p>Read all 500+ verified customer reviews on Google Search</p>
+                <div className="viewall-btn">
+                  View All &rarr;
+                </div>
               </div>
-            </div>
+            </a>
           </div>
         </div>
       </section>
@@ -801,7 +1001,7 @@ export default function Home() {
               <p style={{ fontSize: "15.5px", color: "var(--grey-500)", lineHeight: "1.8", marginBottom: "28px" }}>
                 We ensure your Dubai company setup journey is smooth, compliant, and growth-focused — from selecting the right license to handling approvals, visas, and banking support.
               </p>
-              <button className="btn-primary" onClick={scrollToForm}>
+              <button className="btn-primary" onClick={handleEnquireClick} suppressHydrationWarning>
                 Enquire Now
                 <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                   <line x1="5" y1="12" x2="19" y2="12" />
@@ -863,7 +1063,7 @@ export default function Home() {
                 <li>Visa eligibility</li>
                 <li>Flexible office solutions</li>
               </ul>
-              <button className="btn-outline-white" onClick={scrollToForm}>Get a Quote</button>
+              <button className="btn-outline-white" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
             </div>
 
             {/* Mainland */}
@@ -878,7 +1078,7 @@ export default function Home() {
                 <li>Corporate bank account support</li>
                 <li>Investor & employee visas</li>
               </ul>
-              <button className="btn-outline-white" onClick={scrollToForm}>Get a Quote</button>
+              <button className="btn-outline-white" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
             </div>
 
             {/* Offshore */}
@@ -893,7 +1093,7 @@ export default function Home() {
                 <li>Cost-effective incorporation</li>
                 <li>High confidentiality</li>
               </ul>
-              <button className="btn-outline-white" onClick={scrollToForm}>Get a Quote</button>
+              <button className="btn-outline-white" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
             </div>
           </div>
         </div>
@@ -1046,7 +1246,7 @@ export default function Home() {
               },
             ].map((item, idx) => (
               <div key={idx} className={`faq-item ${openFaqIndex === idx ? "open" : ""}`}>
-                <button className="faq-btn" onClick={() => toggleFaq(idx)}>
+                <button className="faq-btn" onClick={() => toggleFaq(idx)} suppressHydrationWarning>
                   <span className="faq-q-text">{item.q}</span>
                   <span className="faq-chevron">+</span>
                 </button>
@@ -1064,14 +1264,14 @@ export default function Home() {
         <h2>Ready to Start Your Business in Dubai?</h2>
         <p>Speak with our UAE business setup specialists today and get personalized guidance for your company formation journey.</p>
         <div className="cta-btns">
-          <button className="btn-primary" onClick={scrollToForm}>
+          <button className="btn-primary" onClick={handleEnquireClick} suppressHydrationWarning>
             Book Free Consultation
             <svg width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
               <line x1="5" y1="12" x2="19" y2="12" />
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </button>
-          <a href="https://wa.me/971504486285" className="btn-wa" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/91504486285" className="btn-wa" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
               <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -1104,8 +1304,8 @@ export default function Home() {
             <ul className="footer-list-links">
               <li><a href="#">Privacy Policy</a></li>
               <li><a href="#">Terms of Service</a></li>
-              <li><a href="#lead-form" onClick={(e) => { e.preventDefault(); scrollToForm(); }}>Contact Us</a></li>
-              <li><a href="#lead-form" onClick={(e) => { e.preventDefault(); scrollToForm(); }}>Get a Free Quote</a></li>
+              <li><a href="#lead-form" onClick={handleEnquireClick}>Contact Us</a></li>
+              <li><a href="#lead-form" onClick={handleEnquireClick}>Get a Free Quote</a></li>
             </ul>
           </div>
 
@@ -1117,7 +1317,7 @@ export default function Home() {
               </svg>
               <div>
                 <strong>Call Us</strong>
-                <a href="tel:+971504486285">+971 504 486 285</a>
+                <a href="tel:+91504486285">+91 504 486 285</a>
               </div>
             </div>
             <div className="footer-contact-item">
@@ -1148,12 +1348,121 @@ export default function Home() {
       </footer>
 
       {/* FLOATING WA BUTTON */}
-      <a href="https://wa.me/971504486285" className="float-wa" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+      <a href="https://wa.me/91504486285" className="float-wa" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
         </svg>
       </a>
+
+      {/* MOBILE POPUP MODAL */}
+      {isModalOpen && (
+        <div className="mobile-modal-overlay" onClick={() => setIsModalOpen(false)}>
+          <div className="mobile-modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="mobile-modal-close" onClick={() => setIsModalOpen(false)} aria-label="Close form" suppressHydrationWarning>
+              ✕
+            </button>
+            
+            <div className="form-card">
+              <div className="form-head">
+                <h2>Get a Call Back Shortly!</h2>
+                <p>Fill in your details — our advisor responds within 30 mins</p>
+              </div>
+              <div className="form-urgency">
+                ⏱ &nbsp;Limited consultation slots available today
+              </div>
+
+              {!submitted ? (
+                <form className="form-body" onSubmit={handleFormSubmit}>
+                  <div className="fgrp">
+                    <label htmlFor="modal-fname">Full Name</label>
+                    <input
+                      type="text"
+                      id="modal-fname"
+                      placeholder="Full name"
+                      value={fname}
+                      onChange={(e) => setFname(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="fgrp">
+                    <label htmlFor="modal-femail">Email Address</label>
+                    <input
+                      type="email"
+                      id="modal-femail"
+                      placeholder="E-mail"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="fgrp">
+                    <label htmlFor="modal-fphone">Phone / WhatsApp</label>
+                    <input
+                      type="tel"
+                      id="modal-fphone"
+                      placeholder="+91 Your phone"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="fgrp select-wrapper">
+                    <label htmlFor="modal-fpkg">Enquiry For</label>
+                    <select
+                      id="modal-fpkg"
+                      value={pkg}
+                      onChange={(e) => setPkg(e.target.value)}
+                    >
+                      <option value="">Select a package...</option>
+                      <option value="Free Zone Starter">Free Zone Starter</option>
+                      <option value="Free Zone Plus">Free Zone Plus</option>
+                      <option value="Free Zone Premium">Free Zone Premium</option>
+                      <option value="Mainland Business Setup">Mainland Business Setup</option>
+                      <option value="Offshore Company Package">Offshore Company Package</option>
+                      <option value="Not sure – Need advice">Not sure – Need advice</option>
+                    </select>
+                  </div>
+                  <div className="fgrp">
+                    <label htmlFor="modal-factivity">Your enquiry</label>
+                    <textarea
+                      id="modal-factivity"
+                      placeholder="Your enquiry"
+                      value={activity}
+                      onChange={(e) => setActivity(e.target.value)}
+                    />
+                  </div>
+                  <button type="submit" className="submit-btn" suppressHydrationWarning>
+                    Get a Free Quote &rarr;
+                  </button>
+                  <div className="form-privacy">
+                    <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <rect x="3" y="11" width="18" height="11" rx="2" />
+                      <path d="M7 11V7a5 5 0 0110 0v4" />
+                    </svg>
+                    We will handle your personal data in compliance with our Privacy Policy.
+                  </div>
+                </form>
+              ) : (
+                <div className="form-success-state" style={{ display: "block" }}>
+                  <div className="success-icon">✅</div>
+                  <h3>We&apos;ve Got Your Details!</h3>
+                  <p style={{ color: "#4a5568", fontSize: "14px", lineHeight: "1.6", margin: "8px 0 20px" }}>
+                    Our setup advisor will call you within <strong>30 minutes</strong>. Look out for a WhatsApp message too.
+                  </p>
+                  <a href="https://wa.me/91504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "6px" }}>
+                      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                      <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
+                    </svg>
+                    Chat on WhatsApp
+                  </a>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 }
