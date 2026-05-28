@@ -63,6 +63,96 @@ export default function Home() {
   const [timeline, setTimeline] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
+  const [currentPkgIndex, setCurrentPkgIndex] = useState(1); // Default to Free Zone Plus (index 1) since it's most popular
+
+  const packagesList = [
+    {
+      name: "Free Zone Starter",
+      icon: "🚀",
+      desc: "Perfect for freelancers, solo entrepreneurs, and first-time business owners looking for an affordable Dubai company setup solution.",
+      benefits: [
+        "UAE Free Zone Trade License",
+        "100% Foreign Ownership",
+        "Business Registration Support",
+        "Flexi Desk Facility",
+        "Corporate Tax Registration Assistance",
+        "Dedicated Setup Consultant"
+      ],
+      priceOld: "AED 6,500",
+      priceNew: "AED 4,888",
+      featured: false,
+    },
+    {
+      name: "Free Zone Plus",
+      icon: "🌐",
+      desc: "Designed for startups and growing businesses looking for fast and flexible company formation in Dubai with visa eligibility.",
+      benefits: [
+        "UAE Free Zone Trade License",
+        "1 Investor / Residency Visa (2-Year Validity)",
+        "Immigration & Establishment Card Processing",
+        "Flexi Desk Facility",
+        "Business Address Support",
+        "Corporate Tax Registration Support",
+        "Bank Account Assistance"
+      ],
+      priceOld: "AED 12,300",
+      priceNew: "AED 10,800",
+      featured: true,
+    },
+    {
+      name: "Free Zone Premium",
+      icon: "⭐",
+      desc: "Ideal for entrepreneurs and companies requiring complete business setup support with advanced operational and banking assistance.",
+      benefits: [
+        "UAE Trade License",
+        "Investor Visa Assistance",
+        "Dedicated Business Address",
+        "PRO & Government Liaison Support",
+        "Corporate Bank Account Assistance",
+        "Tax Registration Support",
+        "Dedicated Account Manager"
+      ],
+      priceOld: "AED 18,900",
+      priceNew: "AED 14,900",
+      featured: false,
+    },
+    {
+      name: "Mainland Business Setup Package",
+      icon: "🏙️",
+      desc: "Best suited for businesses planning to operate across Dubai and the UAE market without restrictions.",
+      benefits: [
+        "Commercial / Professional / Industrial License",
+        "Company Registration & MOA Attestation Support",
+        "Ejari / Tenancy Assistance",
+        "1 Residency Visa Processing",
+        "Immigration & Labour File Setup",
+        "Corporate Tax Registration",
+        "PRO & Government Approvals Support",
+        "Dedicated Senior Business Setup Advisor"
+      ],
+      priceOld: "AED 24,500",
+      priceNew: "AED 18,500",
+      featured: false,
+    },
+    {
+      name: "Offshore Company Package",
+      icon: "🌍",
+      desc: "Recommended for international business operations, global trading, and tax-efficient company structuring.",
+      benefits: [
+        "Offshore Company Incorporation",
+        "Certificate of Incorporation",
+        "MOA & AOA Preparation",
+        "Registered Business Address",
+        "Shareholder Documentation Support",
+        "Dedicated Registered Agent",
+        "International Business Structuring Assistance"
+      ],
+      priceOld: "AED 12,000",
+      priceNew: "AED 8,500",
+      featured: false,
+    }
+  ];
+
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(null);
 
   const [isScrolled, setIsScrolled] = useState(false);
@@ -105,37 +195,80 @@ export default function Home() {
     <>
       {/* TOPBAR */}
       <div className={`topbar ${isScrolled ? "scrolled-hide" : ""}`}>
-        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us anytime
+        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+971504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+971 504 486 285</a>
       </div>
 
       {/* NAV */}
       <nav className={isScrolled ? "scrolled" : ""}>
         <div className="nav-inner">
-          <a href="#" className="nav-logo">
+          <a href="#" className="logo-container">
             <Image
               src="/black-logo.png"
-              alt="Ad Firms"
-              width={220}
-              height={58}
-              style={{ width: "auto", display: "block" }}
+              alt="Adfirms Logo"
+              width={160}
+              height={42}
+              className="navbar-logo-img"
+              priority
             />
-            <span className="nav-logo-text" style={{ display: "none" }}>Ad Firms</span>
           </a>
+
+          {/* Desktop Navigation Menu */}
+          <div className="nav-menu">
+            <div className="nav-item">
+              Free Zone <span className="nav-item-caret">▼</span>
+            </div>
+            <div className="nav-item">
+              Offshore <span className="nav-item-caret">▼</span>
+            </div>
+            <div className="nav-item">
+              Mainland <span className="nav-item-caret">▼</span>
+            </div>
+            <div className="nav-item">
+              Accounting <span className="nav-item-caret">▼</span>
+            </div>
+            <div className="nav-item">
+              Banks <span className="nav-item-caret">▼</span>
+            </div>
+            <div className="nav-item">
+              Services <span className="nav-item-caret">▼</span>
+            </div>
+            <div className="nav-item">
+              Resources <span className="nav-item-caret">▼</span>
+            </div>
+          </div>
+
+          {/* Desktop Navigation Right */}
           <div className="nav-right">
-            <a href="tel:+971000000000" className="nav-phone">
-              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24">
+            <a href="tel:+971504486285" className="nav-phone-pill">
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
-              +971 00 000 0000
+              +971 504 486 285
             </a>
-            <a href="https://wa.me/971000000000" className="btn-wa-sm" target="_blank" rel="noopener noreferrer">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
+            <div className="nav-flag-link">
+              <span className="nav-flag">🇦🇪</span>
+              <span>Careers</span>
+            </div>
+            <a href="#lead-form" onClick={(e) => { e.preventDefault(); scrollToForm(); }} className="nav-login">
+              Login
+            </a>
+          </div>
+
+          {/* Mobile Navigation Controls */}
+          <div className="mobile-nav-controls">
+            <button className="btn-mobile-quote" onClick={scrollToForm}>Get a Quote</button>
+            <a href="tel:+971504486285" className="mobile-phone-icon">
+              <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
-              WhatsApp
             </a>
-            <button className="btn-nav-cta" onClick={scrollToForm}>Get Quote</button>
+            <button className="mobile-hamburger" onClick={scrollToForm}>
+              <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <line x1="3" y1="12" x2="21" y2="12" />
+                <line x1="3" y1="6" x2="21" y2="6" />
+                <line x1="3" y1="18" x2="21" y2="18" />
+              </svg>
+            </button>
           </div>
         </div>
       </nav>
@@ -145,67 +278,103 @@ export default function Home() {
         <div className="hero-inner">
           {/* Hero Left */}
           <div className="hero-left">
-            <div className="hero-eyebrow">
-              <span className="live-dot"></span>
-              24-Hour Company Formation Dubai
-            </div>
-            <h1>Launch Your <em>Dubai Business</em> in 24 Hours</h1>
-            <p className="hero-sub">Complete company formation in Dubai Free Zone, Mainland or Offshore. 100% ownership, corporate bank account, and UAE residency visa support.</p>
+            <h1>#1 Business Setup Company in Dubai, UAE</h1>
+            <p className="hero-sub">Launch Your Dubai Business in 24 Hours</p>
 
-            <div className="price-tag">
-              <span className="price-from">Starting from</span>
-              <span className="price-num">AED 4,888</span>
-              <span className="price-unit">/ year</span>
-            </div>
-
-            <div className="hero-pills">
-              <div className="hero-pill"><span className="hero-pill-icon">🏢</span> Free Zone & Mainland Setup</div>
-              <div className="hero-pill"><span className="hero-pill-icon">💡</span> Transparent Pricing</div>
-              <div className="hero-pill"><span className="hero-pill-icon">👤</span> Dedicated Consultant</div>
-              <div className="hero-pill"><span className="hero-pill-icon">🛂</span> UAE Visa & Banking</div>
-              <div className="hero-pill"><span className="hero-pill-icon">📄</span> End-to-End Documentation</div>
+            {/* InZone custom price badge */}
+            <div className="price-badge">
+              <div className="price-badge-top">
+                <span className="badge-starting">Starting from</span>
+                <span className="badge-old-price">Dh 6,500</span>
+              </div>
+              <div className="price-badge-bottom">
+                <span className="badge-currency">Dh</span>
+                <span className="badge-new-price">4,888</span>
+              </div>
             </div>
 
-            <div className="hero-ctas">
-              <button className="btn-primary" onClick={scrollToForm}>
-                Get Free Consultation
-                <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                  <line x1="5" y1="12" x2="19" y2="12" />
-                  <polyline points="12 5 19 12 12 19" />
-                </svg>
+            {/* Checklist */}
+            <div className="hero-checklist">
+              <div className="checklist-item">
+                <span className="checklist-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Free zone & mainland setup
+              </div>
+              <div className="checklist-item">
+                <span className="checklist-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Clear pricing & timelines
+              </div>
+              <div className="checklist-item">
+                <span className="checklist-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Dedicated setup advisor
+              </div>
+              <div className="checklist-item">
+                <span className="checklist-icon">
+                  <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                </span>
+                Visa & digital banking support
+              </div>
+            </div>
+
+            {/* Mobile View CTA Button */}
+            <div className="hero-mobile-cta">
+              <button className="submit-btn-pill" onClick={scrollToForm}>
+                Enquire Now
               </button>
-              <a href="https://wa.me/971000000000" className="btn-wa" target="_blank" rel="noopener noreferrer">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
-                  <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
-                </svg>
-                WhatsApp Us
-              </a>
             </div>
 
-            <div className="trust-strip">
-              <div className="trust-item-hero">
-                <div>
-                  <div className="tnum">6+</div>
-                  <div className="tlab">Years Experience</div>
+            {/* Bottom Reviews strip */}
+            <div className="reviews-strip">
+              <div className="review-item">
+                <div className="review-logo google">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v4.51h6.6c-.29 1.53-1.14 2.82-2.4 3.68v3.05h3.88c2.27-2.09 3.66-5.17 3.66-8.72z" fill="#4285F4"/>
+                    <path d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.88-3.05c-1.08.72-2.45 1.16-4.05 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.15C3.18 21.88 7.39 24 12 24z" fill="#34A853"/>
+                    <path d="M5.32 14.24A7.16 7.16 0 0 1 4.91 12c0-.79.13-1.57.37-2.32V6.53H1.21A11.94 11.94 0 0 0 0 12c0 1.92.45 3.74 1.21 5.47l4.11-3.23z" fill="#FBBC05"/>
+                    <path d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.39 0 3.18 2.12 1.21 6.53l4.11 3.23c.94-2.85 3.57-4.96 6.68-4.96z" fill="#EA4335"/>
+                  </svg>
+                </div>
+                <div className="review-text">
+                  <span className="review-title">3,000+ Reviews</span>
+                  <span className="review-subtitle">
+                    4.8/5 Rating
+                    <span className="review-stars">★★★★★</span>
+                  </span>
                 </div>
               </div>
-              <div className="trust-item-hero">
-                <div>
-                  <div className="tnum">500+</div>
-                  <div className="tlab">Clients Served</div>
+
+              <div className="review-item">
+                <div className="review-logo orange-star">★</div>
+                <div className="review-text">
+                  <span className="review-title">600+ Reviews</span>
+                  <span className="review-subtitle">
+                    4.9/5 Rating
+                    <span className="review-stars">★★★★★</span>
+                  </span>
                 </div>
               </div>
-              <div className="trust-item-hero">
-                <div>
-                  <div className="tnum">100%</div>
-                  <div className="tlab">Success Rate</div>
-                </div>
-              </div>
-              <div className="trust-item-hero">
-                <div>
-                  <div className="tnum">24/7</div>
-                  <div className="tlab">Support</div>
+
+              <div className="review-item">
+                <div className="review-logo green-star">★</div>
+                <div className="review-text">
+                  <span className="review-title">500+ Reviews</span>
+                  <span className="review-subtitle">
+                    4.7/5 Rating
+                    <span className="review-stars green">★★★★★</span>
+                  </span>
                 </div>
               </div>
             </div>
@@ -269,7 +438,7 @@ export default function Home() {
                       required
                     />
                   </div>
-                  <div className="fgrp">
+                  <div className="fgrp select-wrapper">
                     <label htmlFor="fpkg">Enquiry For</label>
                     <select
                       id="fpkg"
@@ -285,7 +454,7 @@ export default function Home() {
                       <option value="Not sure – Need advice">Not sure – Need advice</option>
                     </select>
                   </div>
-                  <div className="fgrp">
+                  <div className="fgrp select-wrapper">
                     <label htmlFor="fvisas">Number of Visas Required</label>
                     <select
                       id="fvisas"
@@ -310,7 +479,7 @@ export default function Home() {
                       onChange={(e) => setActivity(e.target.value)}
                     />
                   </div>
-                  <div className="fgrp">
+                  <div className="fgrp select-wrapper">
                     <label htmlFor="ftimeline">When are you looking to setup?</label>
                     <select
                       id="ftimeline"
@@ -324,11 +493,7 @@ export default function Home() {
                     </select>
                   </div>
                   <button type="submit" className="submit-btn">
-                    Get Free Quote
-                    <svg width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
-                      <line x1="5" y1="12" x2="19" y2="12" />
-                      <polyline points="12 5 19 12 12 19" />
-                    </svg>
+                    Get Free Quote &rarr;
                   </button>
                   <div className="form-privacy">
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -342,9 +507,11 @@ export default function Home() {
                 <div className="form-success-state" style={{ display: "block" }}>
                   <div className="success-icon">✅</div>
                   <h3>We&apos;ve Got Your Details!</h3>
-                  <p>Our setup advisor will call you within <strong>30 minutes</strong>. Look out for a WhatsApp message too.</p>
-                  <a href="https://wa.me/971000000000" className="wa-followup" target="_blank" rel="noopener noreferrer">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                  <p style={{ color: "#4a5568", fontSize: "14px", lineHeight: "1.6", margin: "8px 0 20px" }}>
+                    Our setup advisor will call you within <strong>30 minutes</strong>. Look out for a WhatsApp message too.
+                  </p>
+                  <a href="https://wa.me/971504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "6px" }}>
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
                     </svg>
@@ -400,99 +567,180 @@ export default function Home() {
           <h2 className="sec-h2">Explore our Business Setup Dubai Packages</h2>
           <p className="sec-sub">Choose the right company formation package based on your business goals and operational requirements.</p>
 
-          <div className="packages-grid">
-            {/* Free Zone Starter */}
-            <div className="pkg-card">
-              <div className="pkg-icon">🚀</div>
-              <div className="pkg-name">Free Zone Starter</div>
-              <p className="pkg-desc">Perfect for freelancers, solo entrepreneurs, and first-time business owners looking for an affordable Dubai company setup solution.</p>
-              <ul className="pkg-list">
-                <li><span className="pkg-check">✓</span> UAE Free Zone Trade License</li>
-                <li><span className="pkg-check">✓</span> 100% Foreign Ownership</li>
-                <li><span className="pkg-check">✓</span> Business Registration Support</li>
-                <li><span className="pkg-check">✓</span> Flexi Desk Facility</li>
-                <li><span className="pkg-check">✓</span> Corporate Tax Registration Assistance</li>
-                <li><span className="pkg-check">✓</span> Dedicated Setup Consultant</li>
-              </ul>
-              <div className="pkg-price">Starting From <strong>AED 4,888</strong></div>
-              <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+          {/* Desktop view (hidden on mobile) */}
+          <div className="desktop-packages-layout">
+            <div className="packages-grid">
+              {/* Free Zone Starter */}
+              <div className="pkg-card">
+                <div className="pkg-icon">🚀</div>
+                <div className="pkg-name">Free Zone Starter</div>
+                <p className="pkg-desc">Perfect for freelancers, solo entrepreneurs, and first-time business owners looking for an affordable Dubai company setup solution.</p>
+                <ul className="pkg-list">
+                  <li><span className="pkg-check">✓</span> UAE Free Zone Trade License</li>
+                  <li><span className="pkg-check">✓</span> 100% Foreign Ownership</li>
+                  <li><span className="pkg-check">✓</span> Business Registration Support</li>
+                  <li><span className="pkg-check">✓</span> Flexi Desk Facility</li>
+                  <li><span className="pkg-check">✓</span> Corporate Tax Registration Assistance</li>
+                  <li><span className="pkg-check">✓</span> Dedicated Setup Consultant</li>
+                </ul>
+                <div className="pkg-price">Starting From <strong>AED 4,888</strong></div>
+                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              </div>
+
+              {/* Free Zone Plus */}
+              <div className="pkg-card featured">
+                <div className="pkg-popular">Most Popular</div>
+                <div className="pkg-icon">🌐</div>
+                <div className="pkg-name">Free Zone Plus</div>
+                <p className="pkg-desc">Designed for startups and growing businesses looking for fast and flexible company formation in Dubai with visa eligibility.</p>
+                <ul className="pkg-list">
+                  <li><span className="pkg-check">✓</span> UAE Free Zone Trade License</li>
+                  <li><span className="pkg-check">✓</span> 1 Investor / Residency Visa (2-Year Validity)</li>
+                  <li><span className="pkg-check">✓</span> Immigration & Establishment Card Processing</li>
+                  <li><span className="pkg-check">✓</span> Flexi Desk Facility</li>
+                  <li><span className="pkg-check">✓</span> Business Address Support</li>
+                  <li><span className="pkg-check">✓</span> Corporate Tax Registration Support</li>
+                  <li><span className="pkg-check">✓</span> Bank Account Assistance</li>
+                </ul>
+                <div className="pkg-price">Starting From <strong>AED 11,500</strong></div>
+                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              </div>
+
+              {/* Free Zone Premium */}
+              <div className="pkg-card">
+                <div className="pkg-icon">⭐</div>
+                <div className="pkg-name">Free Zone Premium</div>
+                <p className="pkg-desc">Ideal for entrepreneurs and companies requiring complete business setup support with advanced operational and banking assistance.</p>
+                <ul className="pkg-list">
+                  <li><span className="pkg-check">✓</span> UAE Trade License</li>
+                  <li><span className="pkg-check">✓</span> Investor Visa Assistance</li>
+                  <li><span className="pkg-check">✓</span> Dedicated Business Address</li>
+                  <li><span className="pkg-check">✓</span> PRO & Government Liaison Support</li>
+                  <li><span className="pkg-check">✓</span> Corporate Bank Account Assistance</li>
+                  <li><span className="pkg-check">✓</span> Tax Registration Support</li>
+                  <li><span className="pkg-check">✓</span> Dedicated Account Manager</li>
+                </ul>
+                <div className="pkg-price">Starting From <strong>AED 14,900</strong></div>
+                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              </div>
             </div>
 
-            {/* Free Zone Plus */}
-            <div className="pkg-card featured">
-              <div className="pkg-popular">Most Popular</div>
-              <div className="pkg-icon">🌐</div>
-              <div className="pkg-name">Free Zone Plus</div>
-              <p className="pkg-desc">Designed for startups and growing businesses looking for fast and flexible company formation in Dubai with visa eligibility.</p>
-              <ul className="pkg-list">
-                <li><span className="pkg-check">✓</span> UAE Free Zone Trade License</li>
-                <li><span className="pkg-check">✓</span> 1 Investor / Residency Visa (2-Year Validity)</li>
-                <li><span className="pkg-check">✓</span> Immigration & Establishment Card Processing</li>
-                <li><span className="pkg-check">✓</span> Flexi Desk Facility</li>
-                <li><span className="pkg-check">✓</span> Business Address Support</li>
-                <li><span className="pkg-check">✓</span> Corporate Tax Registration Support</li>
-                <li><span className="pkg-check">✓</span> Bank Account Assistance</li>
-              </ul>
-              <div className="pkg-price">Starting From <strong>AED 11,500</strong></div>
-              <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
-            </div>
+            {/* Row 2 */}
+            <div className="pkg-row2">
+              {/* Mainland */}
+              <div className="pkg-card">
+                <div className="pkg-icon">🏙️</div>
+                <div className="pkg-name">Mainland Business Setup Package</div>
+                <p className="pkg-desc">Best suited for businesses planning to operate across Dubai and the UAE market without restrictions.</p>
+                <ul className="pkg-list">
+                  <li><span className="pkg-check">✓</span> Commercial / Professional / Industrial License</li>
+                  <li><span className="pkg-check">✓</span> Company Registration & MOA Attestation Support</li>
+                  <li><span className="pkg-check">✓</span> Ejari / Tenancy Assistance</li>
+                  <li><span className="pkg-check">✓</span> 1 Residency Visa Processing</li>
+                  <li><span className="pkg-check">✓</span> Immigration & Labour File Setup</li>
+                  <li><span className="pkg-check">✓</span> Corporate Tax Registration</li>
+                  <li><span className="pkg-check">✓</span> PRO & Government Approvals Support</li>
+                  <li><span className="pkg-check">✓</span> Dedicated Senior Business Setup Advisor</li>
+                </ul>
+                <div className="pkg-price">Starting From <strong>AED 18,500</strong></div>
+                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              </div>
 
-            {/* Free Zone Premium */}
-            <div className="pkg-card">
-              <div className="pkg-icon">⭐</div>
-              <div className="pkg-name">Free Zone Premium</div>
-              <p className="pkg-desc">Ideal for entrepreneurs and companies requiring complete business setup support with advanced operational and banking assistance.</p>
-              <ul className="pkg-list">
-                <li><span className="pkg-check">✓</span> UAE Trade License</li>
-                <li><span className="pkg-check">✓</span> Investor Visa Assistance</li>
-                <li><span className="pkg-check">✓</span> Dedicated Business Address</li>
-                <li><span className="pkg-check">✓</span> PRO & Government Liaison Support</li>
-                <li><span className="pkg-check">✓</span> Corporate Bank Account Assistance</li>
-                <li><span className="pkg-check">✓</span> Tax Registration Support</li>
-                <li><span className="pkg-check">✓</span> Dedicated Account Manager</li>
-              </ul>
-              <div className="pkg-price">Starting From <strong>AED 14,900</strong></div>
-              <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              {/* Offshore */}
+              <div className="pkg-card">
+                <div className="pkg-icon">🌍</div>
+                <div className="pkg-name">Offshore Company Package</div>
+                <p className="pkg-desc">Recommended for international business operations, global trading, and tax-efficient company structuring.</p>
+                <ul className="pkg-list">
+                  <li><span className="pkg-check">✓</span> Offshore Company Incorporation</li>
+                  <li><span className="pkg-check">✓</span> Certificate of Incorporation</li>
+                  <li><span className="pkg-check">✓</span> MOA & AOA Preparation</li>
+                  <li><span className="pkg-check">✓</span> Registered Business Address</li>
+                  <li><span className="pkg-check">✓</span> Shareholder Documentation Support</li>
+                  <li><span className="pkg-check">✓</span> Dedicated Registered Agent</li>
+                  <li><span className="pkg-check">✓</span> International Business Structuring Assistance</li>
+                </ul>
+                <div className="pkg-price">Starting From <strong>AED 8,500</strong></div>
+                <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              </div>
             </div>
           </div>
 
-          {/* Row 2 */}
-          <div className="pkg-row2">
-            {/* Mainland */}
-            <div className="pkg-card">
-              <div className="pkg-icon">🏙️</div>
-              <div className="pkg-name">Mainland Business Setup Package</div>
-              <p className="pkg-desc">Best suited for businesses planning to operate across Dubai and the UAE market without restrictions.</p>
+          {/* Mobile view Carousel (hidden on desktop) */}
+          <div className="mobile-packages-carousel">
+            <div key={currentPkgIndex} className="pkg-card pkg-card-animate">
+              {packagesList[currentPkgIndex].featured && <div className="pkg-popular">Most Popular</div>}
+              
+              {/* Left navigation arrow inside the card boundary */}
+              <button 
+                className="carousel-arrow-inside prev" 
+                onClick={() => setCurrentPkgIndex((prev) => (prev === 0 ? packagesList.length - 1 : prev - 1))}
+                aria-label="Previous Package"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+
+              {/* Right navigation arrow inside the card boundary */}
+              <button 
+                className="carousel-arrow-inside next" 
+                onClick={() => setCurrentPkgIndex((prev) => (prev === packagesList.length - 1 ? 0 : prev + 1))}
+                aria-label="Next Package"
+              >
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+
+              <div className="carousel-card-header">
+                <div className="logo-main">
+                  <span className="logo-chevron">&gt;&gt;</span>
+                </div>
+                <button className="btn-mobile-quote" onClick={scrollToForm}>Get a Quote</button>
+              </div>
+              
+              <div className="pkg-name">
+                {packagesList[currentPkgIndex].name}
+              </div>
+              
               <ul className="pkg-list">
-                <li><span className="pkg-check">✓</span> Commercial / Professional / Industrial License</li>
-                <li><span className="pkg-check">✓</span> Company Registration & MOA Attestation Support</li>
-                <li><span className="pkg-check">✓</span> Ejari / Tenancy Assistance</li>
-                <li><span className="pkg-check">✓</span> 1 Residency Visa Processing</li>
-                <li><span className="pkg-check">✓</span> Immigration & Labour File Setup</li>
-                <li><span className="pkg-check">✓</span> Corporate Tax Registration</li>
-                <li><span className="pkg-check">✓</span> PRO & Government Approvals Support</li>
-                <li><span className="pkg-check">✓</span> Dedicated Senior Business Setup Advisor</li>
+                {packagesList[currentPkgIndex].benefits.map((benefit, bIdx) => (
+                  <li key={bIdx}>
+                    <span className="pkg-check">✓</span>
+                    {benefit}
+                  </li>
+                ))}
               </ul>
-              <div className="pkg-price">Starting From <strong>AED 18,500</strong></div>
-              <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+              
+              <div className="pkg-price-carousel">
+                <span className="price-starting-label">Starting from</span>
+                <span className="price-old-val">
+                  {packagesList[currentPkgIndex].priceOld}
+                </span>
+                <span className="price-new-val">
+                  {packagesList[currentPkgIndex].priceNew}
+                </span>
+              </div>
+              
+              <button 
+                className="pkg-cta-mobile" 
+                onClick={scrollToForm}
+              >
+                Enquire Now
+              </button>
             </div>
 
-            {/* Offshore */}
-            <div className="pkg-card">
-              <div className="pkg-icon">🌍</div>
-              <div className="pkg-name">Offshore Company Package</div>
-              <p className="pkg-desc">Recommended for international business operations, global trading, and tax-efficient company structuring.</p>
-              <ul className="pkg-list">
-                <li><span className="pkg-check">✓</span> Offshore Company Incorporation</li>
-                <li><span className="pkg-check">✓</span> Certificate of Incorporation</li>
-                <li><span className="pkg-check">✓</span> MOA & AOA Preparation</li>
-                <li><span className="pkg-check">✓</span> Registered Business Address</li>
-                <li><span className="pkg-check">✓</span> Shareholder Documentation Support</li>
-                <li><span className="pkg-check">✓</span> Dedicated Registered Agent</li>
-                <li><span className="pkg-check">✓</span> International Business Structuring Assistance</li>
-              </ul>
-              <div className="pkg-price">Starting From <strong>AED 8,500</strong></div>
-              <button className="pkg-cta" onClick={scrollToForm}>Enquire Now</button>
+            {/* Carousel Dot Indicators */}
+            <div className="carousel-dots">
+              {packagesList.map((_, idx) => (
+                <button
+                  key={idx}
+                  className={`carousel-dot ${currentPkgIndex === idx ? "active" : ""}`}
+                  onClick={() => setCurrentPkgIndex(idx)}
+                  aria-label={`Go to slide ${idx + 1}`}
+                />
+              ))}
             </div>
           </div>
         </div>
@@ -823,7 +1071,7 @@ export default function Home() {
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </button>
-          <a href="https://wa.me/971000000000" className="btn-wa" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/971504486285" className="btn-wa" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
               <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -835,28 +1083,72 @@ export default function Home() {
 
       {/* FOOTER */}
       <footer>
-        <div className="footer-inner">
-          <a href="#" className="footer-logo">
-            <Image
-              src="/black-logo.png"
-              alt="Ad Firms"
-              width={270}
-              height={76}
-              style={{ filter: "brightness(0) invert(1)", opacity: 0.9, width: "auto", height: "76px" }}
-            />
-            <span className="nav-logo-text" style={{ display: "none" }}>Ad Firms</span>
-          </a>
-          <div className="footer-text">© 2025 Ad Firms – An Ideal Business Advisor. All rights reserved.</div>
-          <div className="footer-links">
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms</a>
-            <a href="#">Contact</a>
+        <div className="footer-grid">
+          <div className="footer-col-about">
+            <a href="#" className="footer-logo">
+              <Image
+                src="/black-logo.png"
+                alt="Ad Firms"
+                width={220}
+                height={58}
+                style={{ filter: "brightness(0) invert(1)", opacity: 0.9, width: "auto", height: "58px", display: "block" }}
+              />
+            </a>
+            <p className="footer-desc">
+              At Ad Firms, we assist global entrepreneurs and businesses with strategic company formation, licensing, residency, and banking solutions in Dubai and across the UAE.
+            </p>
           </div>
+
+          <div className="footer-col-links">
+            <h4>Quick Links</h4>
+            <ul className="footer-list-links">
+              <li><a href="#">Privacy Policy</a></li>
+              <li><a href="#">Terms of Service</a></li>
+              <li><a href="#lead-form" onClick={(e) => { e.preventDefault(); scrollToForm(); }}>Contact Us</a></li>
+              <li><a href="#lead-form" onClick={(e) => { e.preventDefault(); scrollToForm(); }}>Get a Free Quote</a></li>
+            </ul>
+          </div>
+
+          <div className="footer-col-contact">
+            <h4>Contact Info</h4>
+            <div className="footer-contact-item">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24" className="footer-contact-icon">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.387a12.035 12.035 0 01-7.108-7.108c-.155-.44.01-1.04.387-1.32l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+              </svg>
+              <div>
+                <strong>Call Us</strong>
+                <a href="tel:+971504486285">+971 504 486 285</a>
+              </div>
+            </div>
+            <div className="footer-contact-item">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24" className="footer-contact-icon">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+              </svg>
+              <div>
+                <strong>Email Us</strong>
+                <a href="mailto:info@ad-firms.com">info@ad-firms.com</a>
+              </div>
+            </div>
+            <div className="footer-contact-item">
+              <svg width="18" height="18" fill="none" stroke="currentColor" strokeWidth="2.2" viewBox="0 0 24 24" className="footer-contact-icon">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+              </svg>
+              <div>
+                <strong>Visit Us</strong>
+                <span>Al Karama, Dubai, UAE</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="footer-bottom">
+          <div className="footer-text">© 2026 Ad Firms – An Ideal Business Advisor. All rights reserved.</div>
         </div>
       </footer>
 
       {/* FLOATING WA BUTTON */}
-      <a href="https://wa.me/971000000000" className="float-wa" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+      <a href="https://wa.me/971504486285" className="float-wa" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
