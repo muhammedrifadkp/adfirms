@@ -71,13 +71,6 @@ const realReviews = [
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
-    name: "Рустем Гатиятуллин",
-    meta: "Local Guide · 1 review · 7 photos · 4 months ago",
-    review: "Anu, thank you very much. Good job 👍",
-    likes: "❤️ 1",
-    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
-  },
-  {
     name: "Midhun Baby",
     meta: "1 review · 9 months ago",
     review: "Professional team from UAE. Excellent service with affordable charges. I had a great experience with them, especially the great support from Ms. Anu. I strongly recommend this team for anyone looking for high-quality service in the UAE. Thank you, team!",
