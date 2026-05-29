@@ -54,6 +54,7 @@ const realReviews = [
     meta: "6 reviews · 1 photo · 7 months ago",
     review: "I worked with Anu for setting up my business license, and she was excellent. I needed a few things done expediently, and Anu and the team were super responsive throughout the whole process. I plan on using them for more visa and business services.",
     likes: "❤️ 1",
+    rating: "4.8",
     owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
   },
   {
@@ -61,6 +62,7 @@ const realReviews = [
     meta: "2 reviews · 6 months ago",
     review: "I have been working with Anu, and she has been incredibly supportive and consistently proactive in her work and approach. I highly recommend AD Firm Business Services.",
     likes: "❤️ 2",
+    rating: "4.9",
     owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
   },
   {
@@ -68,6 +70,7 @@ const realReviews = [
     meta: "5 reviews · 3 photos · 9 months ago",
     review: "I had an excellent experience with AD Firms! A special thanks to Anu for her amazing support in making my visa process smooth and stress-free. She guided me at every step with great clarity and professionalism. Truly appreciate the help and highly recommend AD Firms for any documentation needs!",
     likes: "❤️ 1",
+    rating: "5.0",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -75,6 +78,7 @@ const realReviews = [
     meta: "1 review · 9 months ago",
     review: "Professional team from UAE. Excellent service with affordable charges. I had a great experience with them, especially the great support from Ms. Anu. I strongly recommend this team for anyone looking for high-quality service in the UAE. Thank you, team!",
     likes: "❤️ 2",
+    rating: "4.8",
     owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
   },
   {
@@ -82,6 +86,7 @@ const realReviews = [
     meta: "6 reviews · 2 years ago",
     review: "Very good experience. Excellent service — you guys did a great job.",
     likes: "❤️ 1",
+    rating: "4.7",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -89,6 +94,7 @@ const realReviews = [
     meta: "2 reviews · 1 year ago",
     review: "AD Businessmen Services is fantastic to work with — professional, reliable, and always delivering top-notch results. Highly recommended for anyone looking for quality and efficiency!",
     likes: "❤️🙏 2",
+    rating: "4.9",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -96,6 +102,7 @@ const realReviews = [
     meta: "1 review · 1 year ago",
     review: "We were very pleased with your service. I received my service much faster than expected. Very satisfying experience. Thank you very much, AD Businessmen Services ✨",
     likes: "❤️ 1",
+    rating: "5.0",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -103,6 +110,7 @@ const realReviews = [
     meta: "1 review · 2 years ago",
     review: "Extremely good service... Loved it!",
     likes: "",
+    rating: "4.8",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -110,6 +118,7 @@ const realReviews = [
     meta: "1 review · 2 years ago",
     review: "Excellent and satisfying service at an affordable price. Fantastic service and supportive staff.",
     likes: "❤️ 1",
+    rating: "4.7",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -117,6 +126,7 @@ const realReviews = [
     meta: "5 reviews · 2 years ago",
     review: "Excellent and satisfying services at affordable prices. Very professional team as well. Thank you for your support.",
     likes: "❤️ 1",
+    rating: "4.9",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -124,6 +134,7 @@ const realReviews = [
     meta: "6 reviews · 2 years ago",
     review: "Thank you guys for the great service. Mr. Fahad was extremely helpful throughout the process. I coordinated with him for all the work. I will definitely refer all my friends to your business. Thank you again!",
     likes: "🙏 1",
+    rating: "5.0",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -131,9 +142,177 @@ const realReviews = [
     meta: "1 review · 2 years ago",
     review: "Fantastic service and supportive staff.",
     likes: "",
+    rating: "4.8",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   }
 ];
+
+const partnersData = [
+  {
+    id: "mashreq",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(20, 25)">
+            <circle cx="0" cy="0" r="8" fill="#FF8F00" />
+            <path d="M 0,-6 L 3,-18 L -3,-18 Z" fill="#FFA000" />
+            <path d="M 0,6 L 3,18 L -3,18 Z" fill="#FF8F00" />
+            <path d="M -6,0 L -18,-3 L -18,3 Z" fill="#FFB300" />
+            <path d="M 6,0 L 18,-3 L 18,3 Z" fill="#FFA000" />
+            <path d="M -4,-4 L -13,-13 L -9,-15 Z" fill="#FFC107" />
+            <path d="M 4,4 L 13,13 L 9,15 Z" fill="#FF8F00" />
+            <path d="M 4,-4 L 13,-13 L 15,-9 Z" fill="#FFB300" />
+            <path d="M -4,4 L -13,13 L -15,9 Z" fill="#FFA000" />
+          </g>
+          <text x="65" y="33" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" fontSize="24" fill="#0B1F3A" letterSpacing="-0.5px">mashreq</text>
+          <text x="175" y="32" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="21" fill="#FF8F00">المشرق</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "rakbank",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <text x="15" y="28" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="900" fontStyle="italic" fontSize="30" fill="#E53935" letterSpacing="-1px">RAKBANK</text>
+          <text x="18" y="44" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="600" fontSize="11" fill="#718096" letterSpacing="1px">Simply Better</text>
+          <path d="M 165,12 L 180,12 L 172,36 L 157,36 Z" fill="#E53935" />
+          <path d="M 183,12 L 198,12 L 190,36 L 175,36 Z" fill="#C62828" opacity="0.8" />
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "ajman",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <rect x="-14" y="-14" width="28" height="28" rx="4" fill="none" stroke="#FBC02D" strokeWidth="3" transform="rotate(22.5)" />
+            <rect x="-14" y="-14" width="28" height="28" rx="4" fill="none" stroke="#F57C00" strokeWidth="2.5" transform="rotate(67.5)" />
+            <circle cx="0" cy="0" r="5" fill="#F57C00" />
+          </g>
+          <text x="60" y="24" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="16" fill="#1A1A1A">مصرف عجمان</text>
+          <text x="60" y="41" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="17" fill="#F57C00" letterSpacing="-0.2px">Ajman Bank</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "dib",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <circle cx="0" cy="0" r="16" fill="#2E7D32" />
+            <circle cx="0" cy="0" r="13" fill="none" stroke="#FBC02D" strokeWidth="2" />
+            <path d="M -8,0 L 8,0 M 0,-8 L 0,8" stroke="#FBC02D" strokeWidth="1.5" />
+            <circle cx="0" cy="0" r="4" fill="#FBC02D" />
+          </g>
+          <text x="55" y="24" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="14" fill="#2E7D32">بنك دبي الإسلامي</text>
+          <text x="55" y="41" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="15" fill="#1A1A1A" letterSpacing="-0.5px">Dubai Islamic Bank</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "ei",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <rect x="-14" y="-14" width="28" height="28" fill="#5E35B1" rx="3" />
+            <path d="M -8,-6 L 8,-6 M -8,0 L 4,0 M -8,6 L 8,6" stroke="#FFFFFF" strokeWidth="2.5" strokeLinecap="round" />
+          </g>
+          <text x="60" y="24" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="14" fill="#5E35B1">الإمارات الإسلامي</text>
+          <text x="60" y="41" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="15" fill="#1A1A1A" letterSpacing="-0.5px">EMIRATES ISLAMIC</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "dtec",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <path d="M 0,-15 L 13,-7 L 13,8 L 0,16 L -13,8 L -13,-7 Z" fill="none" stroke="#00bcd4" strokeWidth="2.5" />
+            <path d="M 0,-15 L 0,16 M 0,0 L 13,-7 M 0,0 L -13,-7 M 0,0 L 13,8 M 0,0 L -13,8" stroke="#ff4081" strokeWidth="1.5" />
+            <circle cx="0" cy="0" r="3" fill="#ffeb3b" />
+          </g>
+          <text x="52" y="27" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="900" fontSize="30" fill="#0B1F3A" letterSpacing="-1px">Dtec</text>
+          <text x="54" y="41" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="600" fontSize="7" fill="#718096" letterSpacing="0.2px">DUBAI TECHNOLOGY ENTREPRENEUR CENTRE</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "dmcc",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <text x="25" y="38" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="900" fontSize="42" fill="#132C52" letterSpacing="-2px">DMCC</text>
+          <circle cx="165" cy="30" r="6" fill="#E8A020" />
+          <circle cx="185" cy="30" r="4" fill="#1D69CC" />
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "difc",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <path d="M -12,12 L -12,-12 L 12,-12 L 12,12 L 6,12 L 6,-4 L -6,-4 L -6,12 Z" fill="#1553A0" />
+            <rect x="-3" y="2" width="6" height="10" fill="#E8A020" />
+          </g>
+          <text x="50" y="24" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="12" fill="#1553A0" letterSpacing="-0.2px">Dubai International</text>
+          <text x="50" y="36" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="700" fontSize="12" fill="#1553A0" letterSpacing="-0.2px">Financial Centre</text>
+          <text x="50" y="47" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" fontSize="8" fill="#E8A020" letterSpacing="1px">DIFC</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "dafza",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <path d="M -15,-10 L 0,-15 L -5,5 Z" fill="#E53935" />
+            <path d="M 15,-10 L 0,-15 L 5,5 Z" fill="#1553A0" />
+            <path d="M 0,-15 L 0,15 L -5,5 Z" fill="#0B1F3A" />
+          </g>
+          <text x="52" y="26" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="900" fontSize="20" fill="#0B1F3A" letterSpacing="-0.5px">DAFZA</text>
+          <text x="54" y="40" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="600" fontSize="9" fill="#718096" letterSpacing="0.5px">Dubai Airport Freezone</text>
+        </g>
+      </svg>
+    )
+  },
+  {
+    id: "dso",
+    renderLogo: () => (
+      <svg className="partner-logo-svg" viewBox="0 0 240 60" width="100%" height="100%">
+        <g transform="translate(10, 5)">
+          <g transform="translate(25, 25)">
+            <circle cx="-10" cy="0" r="5" fill="#009688" />
+            <circle cx="10" cy="0" r="5" fill="#009688" />
+            <circle cx="0" cy="-10" r="4" fill="#00796B" />
+            <circle cx="0" cy="10" r="4" fill="#00796B" />
+            <line x1="-10" y1="0" x2="10" y2="0" stroke="#00796B" strokeWidth="2" />
+            <line x1="0" y1="-10" x2="0" y2="10" stroke="#00796B" strokeWidth="2" />
+          </g>
+          <text x="52" y="24" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" fontSize="12" fill="#00796B" letterSpacing="-0.2px">Dubai Silicon Oasis</text>
+          <text x="52" y="38" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="800" fontSize="12" fill="#00796B" letterSpacing="-0.2px">Authority</text>
+          <text x="52" y="49" fontFamily="'Plus Jakarta Sans', sans-serif" fontWeight="600" fontSize="8" fill="#718096">سلطة واحة دبي للسيليكون</text>
+        </g>
+      </svg>
+    )
+  }
+];
+
 
 export default function Home() {
   // Refs
@@ -141,17 +320,28 @@ export default function Home() {
   const reviewsStripRef = useRef<HTMLDivElement>(null);
   const testimonialsScrollRef = useRef<HTMLDivElement>(null);
   const interactionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const scrollTestimonials = (direction: "left" | "right") => {
-    const el = testimonialsScrollRef.current;
-    if (!el) return;
-    const scrollAmount = direction === "left" ? -400 : 400;
-    el.scrollBy({ left: scrollAmount, behavior: "smooth" });
-  };
+  const testiInteractionTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   // States
   const [fname, setFname] = useState("");
   const [isUserInteracting, setIsUserInteracting] = useState(false);
+  const [isTestiInteracting, setIsTestiInteracting] = useState(false);
+
+  const startTestiInteraction = () => {
+    setIsTestiInteracting(true);
+    if (testiInteractionTimeoutRef.current) {
+      clearTimeout(testiInteractionTimeoutRef.current);
+    }
+  };
+
+  const endTestiInteraction = () => {
+    if (testiInteractionTimeoutRef.current) {
+      clearTimeout(testiInteractionTimeoutRef.current);
+    }
+    testiInteractionTimeoutRef.current = setTimeout(() => {
+      setIsTestiInteracting(false);
+    }, 4000); // Resume auto scroll after 4 seconds of touch inactivity
+  };
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+91 ");
@@ -162,7 +352,7 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [currentPkgIndex, setCurrentPkgIndex] = useState(1); // Default to Free Zone Plus (index 1) since it's most popular
+  const [currentPkgIndex, setCurrentPkgIndex] = useState(0); // Default to Free Zone Starter (index 0)
 
   const packagesList = [
     {
@@ -313,6 +503,37 @@ export default function Home() {
       }
     };
   }, [isUserInteracting]);
+
+  // Testimonials mobile-only continuous horizontal auto-scroll
+  useEffect(() => {
+    const el = testimonialsScrollRef.current;
+    if (!el) return;
+
+    let animationFrameId: number;
+    const speed = 0.55; // Comfortable scrolling pace
+
+    const autoScrollTestimonials = () => {
+      // Only auto-scroll on mobile views (viewport width <= 768px)
+      if (window.innerWidth <= 768 && !isTestiInteracting) {
+        el.scrollLeft += speed;
+
+        // Wrap around smoothly to 0 when reaching the end of the scrollable area
+        const maxScroll = el.scrollWidth - el.clientWidth;
+        if (el.scrollLeft >= maxScroll - 2) {
+          el.scrollLeft = 0;
+        }
+      }
+      animationFrameId = requestAnimationFrame(autoScrollTestimonials);
+    };
+
+    animationFrameId = requestAnimationFrame(autoScrollTestimonials);
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+      if (testiInteractionTimeoutRef.current) {
+        clearTimeout(testiInteractionTimeoutRef.current);
+      }
+    };
+  }, [isTestiInteracting]);
 
   // Lock body scroll when mobile modal is active
   useEffect(() => {
@@ -711,99 +932,96 @@ export default function Home() {
           {/* Desktop view (hidden on mobile) */}
           <div className="desktop-packages-layout">
             <div className="packages-grid">
-              {/* Free Zone Starter */}
-              <div className="pkg-card">
-                <div className="pkg-icon">🚀</div>
-                <div className="pkg-name">Free Zone Starter</div>
-                <p className="pkg-desc">Perfect for freelancers, solo entrepreneurs, and first-time business owners looking for an affordable Dubai company setup solution.</p>
-                <ul className="pkg-list">
-                  <li><span className="pkg-check">✓</span> UAE Free Zone Trade License</li>
-                  <li><span className="pkg-check">✓</span> 100% Foreign Ownership</li>
-                  <li><span className="pkg-check">✓</span> Business Registration Support</li>
-                  <li><span className="pkg-check">✓</span> Flexi Desk Facility</li>
-                  <li><span className="pkg-check">✓</span> Corporate Tax Registration Assistance</li>
-                  <li><span className="pkg-check">✓</span> Dedicated Setup Consultant</li>
-                </ul>
-                <div className="pkg-price">Starting From <strong>AED 4,888</strong></div>
-                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
-              </div>
-
-              {/* Free Zone Plus */}
-              <div className="pkg-card featured">
-                <div className="pkg-popular">Most Popular</div>
-                <div className="pkg-icon">🌐</div>
-                <div className="pkg-name">Free Zone Plus</div>
-                <p className="pkg-desc">Designed for startups and growing businesses looking for fast and flexible company formation in Dubai with visa eligibility.</p>
-                <ul className="pkg-list">
-                  <li><span className="pkg-check">✓</span> UAE Free Zone Trade License</li>
-                  <li><span className="pkg-check">✓</span> 1 Investor / Residency Visa (2-Year Validity)</li>
-                  <li><span className="pkg-check">✓</span> Immigration & Establishment Card Processing</li>
-                  <li><span className="pkg-check">✓</span> Flexi Desk Facility</li>
-                  <li><span className="pkg-check">✓</span> Business Address Support</li>
-                  <li><span className="pkg-check">✓</span> Corporate Tax Registration Support</li>
-                  <li><span className="pkg-check">✓</span> Bank Account Assistance</li>
-                </ul>
-                <div className="pkg-price">Starting From <strong>AED 11,500</strong></div>
-                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
-              </div>
-
-              {/* Free Zone Premium */}
-              <div className="pkg-card">
-                <div className="pkg-icon">⭐</div>
-                <div className="pkg-name">Free Zone Premium</div>
-                <p className="pkg-desc">Ideal for entrepreneurs and companies requiring complete business setup support with advanced operational and banking assistance.</p>
-                <ul className="pkg-list">
-                  <li><span className="pkg-check">✓</span> UAE Trade License</li>
-                  <li><span className="pkg-check">✓</span> Investor Visa Assistance</li>
-                  <li><span className="pkg-check">✓</span> Dedicated Business Address</li>
-                  <li><span className="pkg-check">✓</span> PRO & Government Liaison Support</li>
-                  <li><span className="pkg-check">✓</span> Corporate Bank Account Assistance</li>
-                  <li><span className="pkg-check">✓</span> Tax Registration Support</li>
-                  <li><span className="pkg-check">✓</span> Dedicated Account Manager</li>
-                </ul>
-                <div className="pkg-price">Starting From <strong>AED 14,900</strong></div>
-                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
-              </div>
+              {packagesList.slice(0, 3).map((item, idx) => (
+                <div key={idx} className={`pkg-card ${item.featured ? 'featured' : ''}`}>
+                  {item.featured && <div className="pkg-popular">Most Popular</div>}
+                  
+                  <div className="carousel-card-header">
+                    <div className="logo-main">
+                      <span className="logo-chevron">&gt;&gt;</span>
+                    </div>
+                    <button className="btn-mobile-quote" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
+                  </div>
+                  
+                  <div className="pkg-name">
+                    {item.name}
+                  </div>
+                  
+                  <ul className="pkg-list">
+                    {item.benefits.map((benefit, bIdx) => (
+                      <li key={bIdx}>
+                        <span className="pkg-check">✓</span>
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="pkg-price-carousel">
+                    <span className="price-starting-label">Starting from</span>
+                    <span className="price-old-val">
+                      {item.priceOld}
+                    </span>
+                    <span className="price-new-val">
+                      {item.priceNew}
+                    </span>
+                  </div>
+                  
+                  <button 
+                    className="pkg-cta-mobile" 
+                    onClick={handleEnquireClick}
+                    suppressHydrationWarning
+                  >
+                    Enquire Now
+                  </button>
+                </div>
+              ))}
             </div>
 
             {/* Row 2 */}
             <div className="pkg-row2">
-              {/* Mainland */}
-              <div className="pkg-card">
-                <div className="pkg-icon">🏙️</div>
-                <div className="pkg-name">Mainland Business Setup Package</div>
-                <p className="pkg-desc">Best suited for businesses planning to operate across Dubai and the UAE market without restrictions.</p>
-                <ul className="pkg-list">
-                  <li><span className="pkg-check">✓</span> Commercial / Professional / Industrial License</li>
-                  <li><span className="pkg-check">✓</span> Company Registration & MOA Attestation Support</li>
-                  <li><span className="pkg-check">✓</span> Ejari / Tenancy Assistance</li>
-                  <li><span className="pkg-check">✓</span> 1 Residency Visa Processing</li>
-                  <li><span className="pkg-check">✓</span> Immigration & Labour File Setup</li>
-                  <li><span className="pkg-check">✓</span> Corporate Tax Registration</li>
-                  <li><span className="pkg-check">✓</span> PRO & Government Approvals Support</li>
-                  <li><span className="pkg-check">✓</span> Dedicated Senior Business Setup Advisor</li>
-                </ul>
-                <div className="pkg-price">Starting From <strong>AED 18,500</strong></div>
-                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
-              </div>
-
-              {/* Offshore */}
-              <div className="pkg-card">
-                <div className="pkg-icon">🌍</div>
-                <div className="pkg-name">Offshore Company Package</div>
-                <p className="pkg-desc">Recommended for international business operations, global trading, and tax-efficient company structuring.</p>
-                <ul className="pkg-list">
-                  <li><span className="pkg-check">✓</span> Offshore Company Incorporation</li>
-                  <li><span className="pkg-check">✓</span> Certificate of Incorporation</li>
-                  <li><span className="pkg-check">✓</span> MOA & AOA Preparation</li>
-                  <li><span className="pkg-check">✓</span> Registered Business Address</li>
-                  <li><span className="pkg-check">✓</span> Shareholder Documentation Support</li>
-                  <li><span className="pkg-check">✓</span> Dedicated Registered Agent</li>
-                  <li><span className="pkg-check">✓</span> International Business Structuring Assistance</li>
-                </ul>
-                <div className="pkg-price">Starting From <strong>AED 8,500</strong></div>
-                <button className="pkg-cta" onClick={handleEnquireClick}>Enquire Now</button>
-              </div>
+              {packagesList.slice(3).map((item, idx) => (
+                <div key={idx} className={`pkg-card ${item.featured ? 'featured' : ''}`}>
+                  {item.featured && <div className="pkg-popular">Most Popular</div>}
+                  
+                  <div className="carousel-card-header">
+                    <div className="logo-main">
+                      <span className="logo-chevron">&gt;&gt;</span>
+                    </div>
+                    <button className="btn-mobile-quote" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
+                  </div>
+                  
+                  <div className="pkg-name">
+                    {item.name}
+                  </div>
+                  
+                  <ul className="pkg-list">
+                    {item.benefits.map((benefit, bIdx) => (
+                      <li key={bIdx}>
+                        <span className="pkg-check">✓</span>
+                        {benefit}
+                      </li>
+                    ))}
+                  </ul>
+                  
+                  <div className="pkg-price-carousel">
+                    <span className="price-starting-label">Starting from</span>
+                    <span className="price-old-val">
+                      {item.priceOld}
+                    </span>
+                    <span className="price-new-val">
+                      {item.priceNew}
+                    </span>
+                  </div>
+                  
+                  <button 
+                    className="pkg-cta-mobile" 
+                    onClick={handleEnquireClick}
+                    suppressHydrationWarning
+                  >
+                    Enquire Now
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -892,7 +1110,7 @@ export default function Home() {
       </div>
 
       {/* CLIENT TESTIMONIALS */}
-      <section className="section" style={{ paddingBottom: "80px" }}>
+      <section className="section" style={{ paddingBottom: "24px" }}>
         <div className="sec-header-row">
           <div>
             <div className="sec-tag">Client Testimonials</div>
@@ -901,18 +1119,17 @@ export default function Home() {
               Real reviews from real entrepreneurs who established their businesses in the UAE with Ad Firms.
             </p>
           </div>
-          <div className="carousel-nav-btns">
-            <button className="carousel-nav-btn prev" onClick={() => scrollTestimonials("left")} aria-label="Previous review" suppressHydrationWarning>
-              ←
-            </button>
-            <button className="carousel-nav-btn next" onClick={() => scrollTestimonials("right")} aria-label="Next review" suppressHydrationWarning>
-              →
-            </button>
-          </div>
         </div>
 
         <div className="testi-carousel-wrapper">
-          <div className="testi-carousel" ref={testimonialsScrollRef}>
+          <div 
+            className="testi-carousel" 
+            ref={testimonialsScrollRef}
+            onTouchStart={startTestiInteraction}
+            onTouchEnd={endTestiInteraction}
+            onMouseDown={startTestiInteraction}
+            onMouseUp={endTestiInteraction}
+          >
             {realReviews.map((item, idx) => (
               <a 
                 key={idx} 
@@ -926,13 +1143,6 @@ export default function Home() {
                   <div className="testi-name">{item.name}</div>
                   <div className="testi-meta">{item.meta}</div>
                   <p className="testi-quote">"{item.review}"</p>
-                  
-                  {item.owner_reply && (
-                    <div className="testi-reply">
-                      <strong>Response from the owner</strong>
-                      <p>{item.owner_reply}</p>
-                    </div>
-                  )}
                 </div>
 
                 <div className="testi-google-badge">
@@ -947,7 +1157,7 @@ export default function Home() {
                   <div className="google-badge-text">
                     <span className="line1">500+ Reviews</span>
                     <span className="line2">
-                      4.7/5 Rating <span className="google-stars-small">★★★★★</span>
+                      {item.rating}/5 Rating <span className="google-stars-small">★★★★★</span>
                     </span>
                   </div>
                 </div>
@@ -1035,6 +1245,64 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* BUILD YOUR BUSINESS THE RIGHT WAY */}
+      <section className="business-way-section">
+        <div className="business-way-header">
+          <div className="gold-accent-line"></div>
+          <h2>Build Your Business the Right Way</h2>
+        </div>
+
+        <div className="business-way-grid">
+          {/* Mainland Card */}
+          <div className="flip-card">
+            <div className="flip-card-inner">
+              <div className="flip-card-front" style={{ backgroundImage: "url('/mainland.jpg')" }}>
+                <div className="front-overlay">
+                  <h3>Mainland</h3>
+                </div>
+              </div>
+              <div className="flip-card-back">
+                <h3>Mainland Company Setup</h3>
+                <p>Operate anywhere in the UAE with no restrictions and full access to the local market.</p>
+                <button className="back-cta" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quick Quote</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Free Zone Card */}
+          <div className="flip-card">
+            <div className="flip-card-inner">
+              <div className="flip-card-front" style={{ backgroundImage: "url('/freezone.jpg')" }}>
+                <div className="front-overlay">
+                  <h3>Free Zone</h3>
+                </div>
+              </div>
+              <div className="flip-card-back">
+                <h3>Free Zone Company Setup</h3>
+                <p>Set up your business in UAE free zones with 100% ownership, tax benefits, and easy company formation.</p>
+                <button className="back-cta" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quick Quote</button>
+              </div>
+            </div>
+          </div>
+
+          {/* Offshore Card */}
+          <div className="flip-card">
+            <div className="flip-card-inner">
+              <div className="flip-card-front" style={{ backgroundImage: "url('/offshore.jpg')" }}>
+                <div className="front-overlay">
+                  <h3>Offshore</h3>
+                </div>
+              </div>
+              <div className="flip-card-back">
+                <h3>Offshore Company Setup</h3>
+                <p>Perfect for international business, asset protection, and tax-efficient company structuring.</p>
+                <button className="back-cta" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quick Quote</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* TYPES OF SETUP */}
       <div className="types-bg">
@@ -1206,6 +1474,34 @@ export default function Home() {
               <li>Shareholder Documents</li>
               <li>Corporate Registration Certificates</li>
             </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* OUR PARTNERS */}
+      <section className="partners-section">
+        <div className="partners-inner">
+          <div className="partners-header">
+            <div className="gold-accent-line"></div>
+            <h2>Our Partners</h2>
+            <p>Our official partners across free zones & banks</p>
+          </div>
+
+          <div className="partners-ticker-wrap">
+            <div className="partners-ticker-track">
+              {/* First Set (Set A) */}
+              {partnersData.map((partner, idx) => (
+                <div key={`a-${partner.id}-${idx}`} className={`partner-card brand-${partner.id}`}>
+                  {partner.renderLogo()}
+                </div>
+              ))}
+              {/* Second Set (Set B - Duplicated for Infinite Ticker Ticking) */}
+              {partnersData.map((partner, idx) => (
+                <div key={`b-${partner.id}-${idx}`} className={`partner-card brand-${partner.id}`}>
+                  {partner.renderLogo()}
+                </div>
+              ))}
+            </div>
           </div>
         </div>
       </section>
@@ -1456,6 +1752,31 @@ export default function Home() {
           </div>
         </div>
       )}
+      {/* MOBILE STICKY BOTTOM BAR */}
+      <div className="mobile-sticky-bottom-bar">
+        <button className="mbtn-enquire" onClick={handleEnquireClick} suppressHydrationWarning>
+          <svg className="mbtn-icon" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+          </svg>
+          Enquire
+        </button>
+        
+        <a href="tel:+91504486285" className="mbtn-call">
+          <svg className="mbtn-icon" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
+          </svg>
+          Call
+        </a>
+        
+        <button className="mbtn-quote" onClick={handleEnquireClick} suppressHydrationWarning>
+          Get a Quote
+          <span className="mbtn-chevron-circle">
+            <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="3" viewBox="0 0 24 24">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </span>
+        </button>
+      </div>
     </>
   );
 }
