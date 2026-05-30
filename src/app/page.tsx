@@ -344,7 +344,7 @@ export default function Home() {
   };
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("+91 ");
+  const [phone, setPhone] = useState("+971 ");
   const [pkg, setPkg] = useState("");
   const [visas, setVisas] = useState("");
   const [activity, setActivity] = useState("");
@@ -480,11 +480,17 @@ export default function Home() {
     if (!el) return;
 
     let animationFrameId: number;
-    let speed = 0.8; // Butter-smooth sliding speed per frame ticker
+    let lastTime = performance.now();
+    
+    // Constant speed of ~48px per second (0.8px per frame at 60fps)
+    const speedPerMs = 0.048;
 
-    const autoScrollReviews = () => {
+    const autoScrollReviews = (time: number) => {
+      const deltaTime = time - lastTime;
+      const safeDeltaTime = Math.min(deltaTime, 64); // Cap to avoid leaps on background tabs
+      
       if (!isUserInteracting) {
-        el.scrollLeft += speed;
+        el.scrollLeft += speedPerMs * safeDeltaTime;
 
         // Seamless infinite loop trigger
         const halfWidth = el.scrollWidth / 2;
@@ -492,6 +498,7 @@ export default function Home() {
           el.scrollLeft = el.scrollLeft - halfWidth;
         }
       }
+      lastTime = time;
       animationFrameId = requestAnimationFrame(autoScrollReviews);
     };
 
@@ -510,12 +517,18 @@ export default function Home() {
     if (!el) return;
 
     let animationFrameId: number;
-    const speed = 0.55; // Comfortable scrolling pace
+    let lastTime = performance.now();
+    
+    // Constant speed of ~33px per second (0.55px per frame at 60fps)
+    const speedPerMs = 0.033;
 
-    const autoScrollTestimonials = () => {
+    const autoScrollTestimonials = (time: number) => {
+      const deltaTime = time - lastTime;
+      const safeDeltaTime = Math.min(deltaTime, 64); // Cap to avoid leaps
+
       // Only auto-scroll on mobile views (viewport width <= 768px)
       if (window.innerWidth <= 768 && !isTestiInteracting) {
-        el.scrollLeft += speed;
+        el.scrollLeft += speedPerMs * safeDeltaTime;
 
         // Wrap around smoothly to 0 when reaching the end of the scrollable area
         const maxScroll = el.scrollWidth - el.clientWidth;
@@ -523,6 +536,7 @@ export default function Home() {
           el.scrollLeft = 0;
         }
       }
+      lastTime = time;
       animationFrameId = requestAnimationFrame(autoScrollTestimonials);
     };
 
@@ -583,7 +597,7 @@ export default function Home() {
     <>
       {/* TOPBAR */}
       <div className={`topbar ${isScrolled ? "scrolled-hide" : ""}`}>
-        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+91504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+91 504 486 285</a>
+        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+971504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+971 50 448 6285</a>
       </div>
 
       {/* NAV */}
@@ -627,11 +641,11 @@ export default function Home() {
 
           {/* Desktop Navigation Right */}
           <div className="nav-right">
-            <a href="tel:+91504486285" className="nav-phone-pill">
+            <a href="tel:+971504486285" className="nav-phone-pill">
               <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
-              +91 504 486 285
+              +971 50 448 6285
             </a>
             <div className="nav-flag-link">
               <span className="nav-flag">🇦🇪</span>
@@ -645,7 +659,7 @@ export default function Home() {
           {/* Mobile Navigation Controls */}
           <div className="mobile-nav-controls">
             <button className="btn-mobile-quote" onClick={handleEnquireClick} suppressHydrationWarning>Get a Quote</button>
-            <a href="tel:+91504486285" className="mobile-phone-icon">
+            <a href="tel:+971504486285" className="mobile-phone-icon">
               <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
@@ -1560,7 +1574,7 @@ export default function Home() {
               <polyline points="12 5 19 12 12 19" />
             </svg>
           </button>
-          <a href="https://wa.me/91504486285" className="btn-wa" target="_blank" rel="noopener noreferrer">
+          <a href="https://wa.me/971504486285?text=Hello%20AD%20Firms%2C%20I%20would%20like%20to%20enquire%20about%20business%20setup%20services%20in%20Dubai%2C%20UAE.%20Please%20provide%20more%20details." className="btn-wa" target="_blank" rel="noopener noreferrer">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
               <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -1606,7 +1620,7 @@ export default function Home() {
               </svg>
               <div>
                 <strong>Call Us</strong>
-                <a href="tel:+91504486285">+91 504 486 285</a>
+                <a href="tel:+971504486285">+971 50 448 6285</a>
               </div>
             </div>
             <div className="footer-contact-item">
@@ -1637,7 +1651,7 @@ export default function Home() {
       </footer>
 
       {/* FLOATING WA BUTTON */}
-      <a href="https://wa.me/91504486285" className="float-wa" target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
+      <a href="https://wa.me/971504486285?text=Hello%20AD%20Firms%2C%20I%20would%20like%20to%20enquire%20about%20business%20setup%20services%20in%20Dubai%2C%20UAE.%20Please%20provide%20more%20details." className={`float-wa ${isScrolled ? "shifted" : ""}`} target="_blank" rel="noopener noreferrer" title="Chat on WhatsApp">
         <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
           <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -1739,7 +1753,7 @@ export default function Home() {
                   <p style={{ color: "#4a5568", fontSize: "14px", lineHeight: "1.6", margin: "8px 0 20px" }}>
                     Our setup advisor will call you within <strong>30 minutes</strong>. Look out for a WhatsApp message too.
                   </p>
-                  <a href="https://wa.me/91504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/971504486285?text=Hello%20AD%20Firms%2C%20I%20would%20like%20to%20enquire%20about%20business%20setup%20services%20in%20Dubai%2C%20UAE.%20Please%20provide%20more%20details." className="wa-followup" target="_blank" rel="noopener noreferrer">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "6px" }}>
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -1753,7 +1767,7 @@ export default function Home() {
         </div>
       )}
       {/* MOBILE STICKY BOTTOM BAR */}
-      <div className="mobile-sticky-bottom-bar">
+      <div className={`mobile-sticky-bottom-bar ${isScrolled ? "visible" : ""}`}>
         <button className="mbtn-enquire" onClick={handleEnquireClick} suppressHydrationWarning>
           <svg className="mbtn-icon" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
@@ -1761,7 +1775,7 @@ export default function Home() {
           Enquire
         </button>
         
-        <a href="tel:+91504486285" className="mbtn-call">
+        <a href="tel:+971504486285" className="mbtn-call">
           <svg className="mbtn-icon" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
             <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-2.2 2.2a15.045 15.045 0 01-6.59-6.59l2.2-2.21a.96.96 0 00.25-1A11.36 11.36 0 018.5 4c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1 0 9.39 7.61 17 17 17 .55 0 1-.45 1-1v-3.5c0-.55-.45-1-1-1z" />
           </svg>
