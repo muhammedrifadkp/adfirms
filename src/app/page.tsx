@@ -606,7 +606,16 @@ export default function Home() {
     <>
       {/* TOPBAR */}
       <div className="topbar">
-        🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+971504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+971 50 448 6285</a>
+        <div className="topbar-inner">
+          <span className="topbar-left">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" style={{ marginRight: '6px' }}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+            Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now
+          </span>
+          <span className="topbar-right">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '6px' }}><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" /></svg>
+            Call us at <a href="tel:+971504486285" style={{ fontWeight: "800", marginLeft: '4px' }}>+971 50 448 6285</a>
+          </span>
+        </div>
       </div>
 
       {/* NAV */}
@@ -625,27 +634,6 @@ export default function Home() {
 
           {/* Desktop Navigation Menu */}
           <div className="nav-menu">
-            <div className="nav-item">
-              Free Zone <span className="nav-item-caret">▼</span>
-            </div>
-            <div className="nav-item">
-              Offshore <span className="nav-item-caret">▼</span>
-            </div>
-            <div className="nav-item">
-              Mainland <span className="nav-item-caret">▼</span>
-            </div>
-            <div className="nav-item">
-              Accounting <span className="nav-item-caret">▼</span>
-            </div>
-            <div className="nav-item">
-              Banks <span className="nav-item-caret">▼</span>
-            </div>
-            <div className="nav-item">
-              Services <span className="nav-item-caret">▼</span>
-            </div>
-            <div className="nav-item">
-              Resources <span className="nav-item-caret">▼</span>
-            </div>
           </div>
 
           {/* Desktop Navigation Right */}

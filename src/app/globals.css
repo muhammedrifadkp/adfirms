@@ -88,28 +88,46 @@ button {
 
 /* ===================== TOPBAR ===================== */
 .topbar {
-  background: var(--navy);
-  color: rgba(255, 255, 255, 0.75);
+  background: linear-gradient(90deg, #E8A020 0%, #F5BE54 50%, #E8A020 100%);
+  background-size: 200% auto;
+  animation: bg-shine 4s linear infinite;
+  color: #0B1F3A;
   font-size: 13px;
-  text-align: center;
-  padding: 9px 20px;
-  letter-spacing: 0.01em;
-  max-height: 40px;
-  opacity: 1;
-  overflow: hidden;
-  transition: max-height 0.3s cubic-bezier(0.4, 0, 0.2, 1), padding 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+  padding: 10px 24px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
-.topbar.scrolled-hide {
-  max-height: 0;
-  padding-top: 0;
-  padding-bottom: 0;
-  opacity: 0;
-  border: none;
+@keyframes bg-shine {
+  to { background-position: 200% center; }
+}
+
+.topbar-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.topbar-left, .topbar-right {
+  display: flex;
+  align-items: center;
 }
 
 .topbar strong {
-  color: var(--accent-lt);
+  color: #000000;
+  font-weight: 800;
+}
+
+.topbar a {
+  transition: opacity 0.2s;
+}
+
+.topbar a:hover {
+  opacity: 0.8;
 }
 
 /* ===================== NAV ===================== */
