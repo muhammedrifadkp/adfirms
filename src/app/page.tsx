@@ -648,9 +648,6 @@ export default function Home() {
               <span className="nav-flag">🇦🇪</span>
               <span>Careers</span>
             </div>
-            <a href="#lead-form" onClick={handleEnquireClick} className="nav-login">
-              Login
-            </a>
           </div>
 
           {/* Mobile Navigation Controls */}
