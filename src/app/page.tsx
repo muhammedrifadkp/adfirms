@@ -583,8 +583,17 @@ export default function Home() {
       alert("Please fill in your name, email, and phone number.");
       return;
     }
-    // Future CRM/webhook integration:
-    // fetch('/api/leads', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({fname, lname, email, phone, pkg, visas, activity, timeline}) });
+
+    const message = `*New Enquiry from Ad Firms:*
+*Name:* ${fname}
+*Email:* ${email}
+*Phone:* ${phone}
+*Package:* ${pkg || 'Not specified'}
+*Enquiry:* ${activity || 'Not specified'}`;
+
+    const whatsappUrl = `https://wa.me/971504486285?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+
     setSubmitted(true);
   };
 
@@ -596,7 +605,7 @@ export default function Home() {
   return (
     <>
       {/* TOPBAR */}
-      <div className={`topbar ${isScrolled ? "scrolled-hide" : ""}`}>
+      <div className="topbar">
         🇦🇪 Launch your UAE business from <strong>AED 4,888</strong> — Expert advisors available now &nbsp;|&nbsp; 📞 Call us at <a href="tel:+971504486285" style={{ color: "var(--accent-lt)", fontWeight: "700" }}>+971 50 448 6285</a>
       </div>
 
