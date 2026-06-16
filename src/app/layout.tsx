@@ -31,10 +31,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const gtmId = process.env.NEXT_PUBLIC_GTM_ID || "GTM-NCWN9D9C";
+
   return (
     <html lang="en" className={`${plusJakartaSans.variable} ${fraunces.variable}`} suppressHydrationWarning>
       <body>
-        <GoogleTagManager gtmId="GTM-WSHRNQCK" />
+        <GoogleTagManager gtmId={gtmId} />
         {children}
       </body>
     </html>
