@@ -348,7 +348,7 @@ export default function Home() {
   };
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
-  const [countryCode, setCountryCode] = useState("+91");
+  const [countryCode, setCountryCode] = useState("+971");
   const [phone, setPhone] = useState("");
   const [pkg, setPkg] = useState("");
   const [visas, setVisas] = useState("");
@@ -1793,15 +1793,28 @@ export default function Home() {
                   </div>
                   <div className="fgrp">
                     <label htmlFor="modal-fphone">Phone / WhatsApp</label>
-                    <input
-                      type="tel"
-                      id="modal-fphone"
-                      placeholder="+91 (India) or +971 (UAE)"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                      suppressHydrationWarning
-                    />
+                    <div style={{ display: "flex", gap: "12px", alignItems: "flex-end" }}>
+                      <div className="select-wrapper" style={{ width: "100px", flexShrink: 0 }}>
+                        <select 
+                          value={countryCode} 
+                          onChange={(e) => setCountryCode(e.target.value)}
+                          suppressHydrationWarning
+                        >
+                          <option value="+91">IN +91</option>
+                          <option value="+971">AE +971</option>
+                        </select>
+                      </div>
+                      <input
+                        type="tel"
+                        id="modal-fphone"
+                        placeholder="+91 (India) or +971 (UAE)"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                        suppressHydrationWarning
+                        style={{ flex: 1 }}
+                      />
+                    </div>
                   </div>
                   <div className="fgrp select-wrapper">
                     <label htmlFor="modal-fpkg">Select your Industry</label>
