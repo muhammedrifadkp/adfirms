@@ -2,10 +2,11 @@
 
 import Image from "next/image";
 import { useState, useEffect, useRef } from "react";
+import { useRouter } from "next/navigation";
 
 // StatCounter component to animate statistics count-up when visible in the viewport
 function StatCounter({ target, suffix, duration = 1800 }: { target: number; suffix: string; duration?: number }) {
-  const [count, setCount] = useState(0);
+  const [count, setCount] = useState(target);
   const [hasAnimated, setHasAnimated] = useState(false);
   const elementRef = useRef<HTMLDivElement>(null);
 
@@ -16,6 +17,7 @@ function StatCounter({ target, suffix, duration = 1800 }: { target: number; suff
         if (entry.isIntersecting && !hasAnimated) {
           setHasAnimated(true);
           let start = 0;
+          setCount(0);
           const stepTime = 16;
           const steps = duration / stepTime;
           const stepVal = target / steps;
@@ -50,12 +52,12 @@ function StatCounter({ target, suffix, duration = 1800 }: { target: number; suff
 
 const realReviews = [
   {
-    name: "Steven George",
-    meta: "6 reviews · 1 photo · 7 months ago",
-    review: "I worked with Anu for setting up my business license, and she was excellent. I needed a few things done expediently, and Anu and the team were super responsive throughout the whole process. I plan on using them for more visa and business services.",
+    name: "Mukul Yadav",
+    meta: "5 reviews · 3 photos · 9 months ago",
+    review: "I had an excellent experience with AD Firms! A special thanks to Anu for her amazing support in making my visa process smooth and stress-free. She guided me at every step with great clarity and professionalism. Truly appreciate the help and highly recommend AD Firms for any documentation needs!",
     likes: "❤️ 1",
-    rating: "4.8",
-    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
+    rating: "5.0",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
     name: "Neha Panwar",
@@ -66,18 +68,26 @@ const realReviews = [
     owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
   },
   {
-    name: "Mukul Yadav",
-    meta: "5 reviews · 3 photos · 9 months ago",
-    review: "I had an excellent experience with AD Firms! A special thanks to Anu for her amazing support in making my visa process smooth and stress-free. She guided me at every step with great clarity and professionalism. Truly appreciate the help and highly recommend AD Firms for any documentation needs!",
-    likes: "❤️ 1",
-    rating: "5.0",
-    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
-  },
-  {
     name: "Midhun Baby",
     meta: "1 review · 9 months ago",
     review: "Professional team from UAE. Excellent service with affordable charges. I had a great experience with them, especially the great support from Ms. Anu. I strongly recommend this team for anyone looking for high-quality service in the UAE. Thank you, team!",
     likes: "❤️ 2",
+    rating: "4.8",
+    owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
+  },
+  {
+    name: "Baljit Kaur",
+    meta: "1 review · 2 years ago",
+    review: "Excellent and satisfying service at an affordable price. Fantastic service and supportive staff.",
+    likes: "❤️ 1",
+    rating: "4.7",
+    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
+  },
+  {
+    name: "Steven George",
+    meta: "6 reviews · 1 photo · 7 months ago",
+    review: "I worked with Anu for setting up my business license, and she was excellent. I needed a few things done expediently, and Anu and the team were super responsive throughout the whole process. I plan on using them for more visa and business services.",
+    likes: "❤️ 1",
     rating: "4.8",
     owner_reply: "Thank you for your wonderful review! We’re glad to hear that Anu was able to assist you efficiently. We’ll be sure to share your feedback with the team."
   },
@@ -111,14 +121,6 @@ const realReviews = [
     review: "Extremely good service... Loved it!",
     likes: "",
     rating: "4.8",
-    owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
-  },
-  {
-    name: "Baljit Kaur",
-    meta: "1 review · 2 years ago",
-    review: "Excellent and satisfying service at an affordable price. Fantastic service and supportive staff.",
-    likes: "❤️ 1",
-    rating: "4.7",
     owner_reply: "Thank you for your kind words! We’re glad you had a great experience with our team. Looking forward to assisting you again."
   },
   {
@@ -315,6 +317,8 @@ const partnersData = [
 
 
 export default function Home() {
+  const router = useRouter();
+
   // Refs
   const formRef = useRef<HTMLDivElement>(null);
   const reviewsStripRef = useRef<HTMLDivElement>(null);
@@ -344,13 +348,25 @@ export default function Home() {
   };
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("+971 ");
+  const [countryCode, setCountryCode] = useState("+91");
+  const [phone, setPhone] = useState("");
   const [pkg, setPkg] = useState("");
   const [visas, setVisas] = useState("");
   const [activity, setActivity] = useState("");
   const [timeline, setTimeline] = useState("");
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [urgencyText, setUrgencyText] = useState("⏱  Limited consultation slots available today");
+
+  useEffect(() => {
+    const today = new Date().toLocaleDateString('en-IN', {
+      day: 'numeric',
+      month: 'long'
+    });
+    setUrgencyText(`⏱  Only 3 consultation slots left today — ${today}`);
+  }, []);
 
   const [currentPkgIndex, setCurrentPkgIndex] = useState(0); // Default to Free Zone Starter (index 0)
 
@@ -577,24 +593,55 @@ export default function Home() {
   };
 
   // Form submit handler
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!fname || !email || !phone) {
-      alert("Please fill in your name, email, and phone number.");
+    if (!fname || !phone) {
+      alert("Please fill in your name and phone number.");
       return;
     }
 
-    const message = `*New Enquiry from Ad Firms:*
-*Name:* ${fname}
-*Email:* ${email}
-*Phone:* ${phone}
-*Package:* ${pkg || 'Not specified'}
-*Enquiry:* ${activity || 'Not specified'}`;
+    let finalPhone = phone.trim();
+    if (finalPhone.startsWith(countryCode)) {
+      finalPhone = finalPhone.substring(countryCode.length).trim();
+    }
+    finalPhone = finalPhone.startsWith('+') ? finalPhone : `${countryCode} ${finalPhone}`;
 
-    const whatsappUrl = `https://wa.me/971504486285?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, '_blank');
+    setIsSubmitting(true);
 
-    setSubmitted(true);
+    try {
+      const response = await fetch("/api/lead", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          fname,
+          phone: finalPhone,
+          pkg,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok && data.success) {
+        // Redirect to the thank you page
+        router.push("/thank-you");
+        setSubmitted(true);
+      } else {
+        console.error("Submission failed:", data.errors || data.error);
+        alert(
+          data.error || 
+          "Failed to submit your request. However, our WhatsApp is active. Please click the WhatsApp button to contact us directly!"
+        );
+      }
+    } catch (error) {
+      console.error("Submission error:", error);
+      alert(
+        "A connection error occurred. However, our WhatsApp is active. Please click the WhatsApp link to chat with us!"
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   // FAQ Toggle handler
@@ -613,7 +660,7 @@ export default function Home() {
           </span>
           <span className="topbar-right">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: '6px' }}><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" /></svg>
-            Call us at <a href="tel:+971504486285" style={{ fontWeight: "800", marginLeft: '4px' }}>+971 50 448 6285</a>
+            Call us at <a href="tel:+971504486285" style={{ fontWeight: "800", marginLeft: '4px' }}>🇦🇪 +971 50 448 6285</a>
           </span>
         </div>
       </div>
@@ -638,15 +685,11 @@ export default function Home() {
 
           {/* Desktop Navigation Right */}
           <div className="nav-right">
-            <a href="tel:+971504486285" className="nav-phone-pill">
-              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24">
+            <div className="nav-phone-pill" style={{ textDecoration: 'none' }}>
+              <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24" style={{ marginRight: '4px' }}>
                 <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
               </svg>
-              +971 50 448 6285
-            </a>
-            <div className="nav-flag-link">
-              <span className="nav-flag">🇦🇪</span>
-              <span>Careers</span>
+              <a href="tel:+971504486285" style={{ color: '#ffffff', textDecoration: 'none' }}>🇦🇪 +971 50 448 6285</a>
             </div>
           </div>
 
@@ -675,17 +718,26 @@ export default function Home() {
           {/* Hero Left */}
           <div className="hero-left">
             <h1>#1 Business Setup Company in Dubai, UAE</h1>
+            <p className="hero-trust-signal" style={{ fontSize: "16.5px", fontWeight: "600", color: "#F5BE54", margin: "-6px 0 20px 0", display: "flex", alignItems: "center", gap: "6px" }}>
+              🇮🇳 Trusted by 500+ Indian Entrepreneurs in Dubai
+            </p>
             <p className="hero-sub">Launch Your Dubai Business in 24 Hours</p>
 
             {/* InZone custom price badge */}
             <div className="price-badge">
               <div className="price-badge-top">
                 <span className="badge-starting">Starting from</span>
-                <span className="badge-old-price">Dh 6,500</span>
+                <span className="badge-old-price">AED 6,500</span>
               </div>
               <div className="price-badge-bottom">
-                <span className="badge-currency">Dh</span>
+                <span className="badge-currency">AED</span>
                 <span className="badge-new-price">4,888</span>
+              </div>
+              <div className="price-badge-inr" style={{ fontSize: "14px", color: "rgba(255,255,255,0.7)", marginTop: "6px", fontWeight: "600" }}>
+                (~₹1.12 Lakhs)
+              </div>
+              <div className="price-badge-emi" style={{ fontSize: "12px", color: "#ffffff", marginTop: "8px", fontWeight: "500", display: "flex", alignItems: "center", gap: "4px" }}>
+                <span style={{ color: "#4ade80" }}>✓</span> Flexible payment options available — ask our advisor
               </div>
             </div>
 
@@ -829,11 +881,14 @@ export default function Home() {
           <div className="form-wrap" id="lead-form" ref={formRef}>
             <div className="form-card">
               <div className="form-head">
+                <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#F5BE54', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  🇮🇳 Calling from India? We&apos;re Here!
+                </div>
                 <h2>Get a Call Back Shortly!</h2>
                 <p>Fill in your details — our advisor responds within 30 mins</p>
               </div>
-              <div className="form-urgency">
-                ⏱ &nbsp;Limited consultation slots available today
+              <div className="form-urgency" id="urgency-text">
+                {urgencyText}
               </div>
 
               {!submitted ? (
@@ -847,58 +902,76 @@ export default function Home() {
                       value={fname}
                       onChange={(e) => setFname(e.target.value)}
                       required
-                    />
-                  </div>
-                  <div className="fgrp">
-                    <label htmlFor="femail">Email Address</label>
-                    <input
-                      type="email"
-                      id="femail"
-                      placeholder="E-mail"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
+                      suppressHydrationWarning
                     />
                   </div>
                   <div className="fgrp">
                     <label htmlFor="fphone">Phone / WhatsApp</label>
-                    <input
-                      type="tel"
-                      id="fphone"
-                      placeholder="+91 Your phone"
-                      value={phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                      required
-                    />
+                    <div style={{ display: "flex", gap: "12px", alignItems: "flex-end" }}>
+                      <div className="select-wrapper" style={{ width: "100px", flexShrink: 0 }}>
+                        <select 
+                          value={countryCode} 
+                          onChange={(e) => setCountryCode(e.target.value)}
+                          suppressHydrationWarning
+                        >
+                          <option value="+91">IN +91</option>
+                          <option value="+971">AE +971</option>
+                        </select>
+                      </div>
+                      <input
+                        type="tel"
+                        id="fphone"
+                        placeholder="+91 (India) or +971 (UAE)"
+                        value={phone}
+                        onChange={(e) => setPhone(e.target.value)}
+                        required
+                        suppressHydrationWarning
+                        style={{ flex: 1 }}
+                      />
+                    </div>
                   </div>
                   <div className="fgrp select-wrapper">
-                    <label htmlFor="fpkg">Enquiry For</label>
+                    <label htmlFor="fpkg">Select your Industry</label>
                     <select
                       id="fpkg"
                       value={pkg}
                       onChange={(e) => setPkg(e.target.value)}
+                      required
+                      suppressHydrationWarning
                     >
-                      <option value="">Select a package...</option>
-                      <option value="Free Zone Starter">Free Zone Starter</option>
-                      <option value="Free Zone Plus">Free Zone Plus</option>
-                      <option value="Free Zone Premium">Free Zone Premium</option>
-                      <option value="Mainland Business Setup">Mainland Business Setup</option>
-                      <option value="Offshore Company Package">Offshore Company Package</option>
-                      <option value="Not sure – Need advice">Not sure – Need advice</option>
+                      <option value="">Select your Industry...</option>
+                      <option value="E-commerce & Online Selling">🛒 E-commerce & Online Selling</option>
+                      <option value="Trading / Import & Export">📦 Trading / Import & Export</option>
+                      <option value="IT & Technology">💻 IT & Technology</option>
+                      <option value="Consulting & Professional Services">🤝 Consulting & Professional Services</option>
+                      <option value="Real Estate">🏢 Real Estate</option>
+                      <option value="Restaurant & Food Business">🍽️ Restaurant & Food Business</option>
+                      <option value="Travel & Tourism">✈️ Travel & Tourism</option>
+                      <option value="Education & Training">🎓 Education & Training</option>
+                      <option value="Other – I'll explain below">📌 Other – I&apos;ll explain below</option>
                     </select>
                   </div>
-                  <div className="fgrp">
-                    <label htmlFor="factivity">Your enquiry</label>
-                    <textarea
-                      id="factivity"
-                      placeholder="Your enquiry"
-                      value={activity}
-                      onChange={(e) => setActivity(e.target.value)}
-                    />
-                  </div>
-                  <button type="submit" className="submit-btn" suppressHydrationWarning>
-                    Get a Free Quote &rarr;
+                  <button type="submit" className="submit-btn" disabled={isSubmitting} suppressHydrationWarning>
+                    {isSubmitting ? "Submitting..." : "Get a Free Quote →"}
                   </button>
+
+                  {/* WhatsApp CTA below Form */}
+                  <div className="form-whatsapp-cta" style={{ textAlign: "center", marginTop: "16px", fontSize: "13.5px" }}>
+                    <div style={{ color: "var(--grey-500)", marginBottom: "4px" }}>Prefer WhatsApp? Chat directly with our advisor &rarr;</div>
+                    <a 
+                      href="https://wa.me/971504486285?text=Hello%20AD%20Firms%2C%20I%20would%20like%20to%20enquire%20about%20business%20setup%20services%20in%20Dubai%2C%20UAE.%20Please%20provide%20more%20details." 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px", color: "#25D366", fontWeight: "700", textDecoration: "none" }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
+                      </svg>
+                      +971 50 448 6285
+                    </a>
+                  </div>
+
                   <div className="form-privacy">
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <rect x="3" y="11" width="18" height="11" rx="2" />
@@ -914,7 +987,7 @@ export default function Home() {
                   <p style={{ color: "#4a5568", fontSize: "14px", lineHeight: "1.6", margin: "8px 0 20px" }}>
                     Our setup advisor will call you within <strong>30 minutes</strong>. Look out for a WhatsApp message too.
                   </p>
-                  <a href="https://wa.me/91504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
+                  <a href="https://wa.me/971504486285" className="wa-followup" target="_blank" rel="noopener noreferrer">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style={{ marginRight: "6px" }}>
                       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                       <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
@@ -971,6 +1044,11 @@ export default function Home() {
                     </span>
                     <span className="price-new-val">
                       {item.priceNew}
+                      {item.priceNew === "AED 4,888" && (
+                        <span style={{ fontSize: '13px', fontWeight: '500', color: 'var(--grey-500)', display: 'block', marginTop: '2px' }}>
+                          (~₹1.12 Lakhs)
+                        </span>
+                      )}
                     </span>
                   </div>
                   
@@ -1018,6 +1096,11 @@ export default function Home() {
                     </span>
                     <span className="price-new-val">
                       {item.priceNew}
+                      {item.priceNew === "AED 4,888" && (
+                        <span style={{ fontSize: '13px', fontWeight: '500', color: 'var(--grey-500)', display: 'block', marginTop: '2px' }}>
+                          (~₹1.12 Lakhs)
+                        </span>
+                      )}
                     </span>
                   </div>
                   
@@ -1089,6 +1172,11 @@ export default function Home() {
                 </span>
                 <span className="price-new-val">
                   {packagesList[currentPkgIndex].priceNew}
+                  {packagesList[currentPkgIndex].priceNew === "AED 4,888" && (
+                    <span style={{ fontSize: '13px', fontWeight: '500', color: 'var(--grey-500)', display: 'block', marginTop: '2px' }}>
+                      (~₹1.12 Lakhs)
+                    </span>
+                  )}
                 </span>
               </div>
               
@@ -1222,11 +1310,11 @@ export default function Home() {
 
               <div className="about-stats">
                 <div className="astat">
-                  <StatCounter target={6} suffix="+" />
+                  <StatCounter target={8} suffix="+" />
                   <div className="astat-label">Years Experience</div>
                 </div>
                 <div className="astat">
-                  <StatCounter target={100} suffix="%" />
+                  <StatCounter target={98} suffix="%" />
                   <div className="astat-label">Success Rate</div>
                 </div>
                 <div className="astat">
@@ -1234,7 +1322,7 @@ export default function Home() {
                   <div className="astat-label">Clients Served</div>
                 </div>
                 <div className="astat">
-                  <StatCounter target={24} suffix="/7" />
+                  <div className="astat-num">24/7</div>
                   <div className="astat-label">Support Available</div>
                 </div>
               </div>
@@ -1541,6 +1629,26 @@ export default function Home() {
                 q: "Can I get UAE residency through a business setup?",
                 a: "Yes. Business owners and investors can apply for UAE residency visas through eligible company formation packages. Our Free Zone Plus, Free Zone Premium, and Mainland packages all include residency visa processing support.",
               },
+              {
+                q: "Can I set up a UAE business while staying in India?",
+                a: "Yes, the entire company registration process can be completed remotely. You do not need to be physically present in the UAE to submit documents, register your trade name, or obtain your business license. Our team handles everything on your behalf from Dubai.",
+              },
+              {
+                q: "Do I need to travel to Dubai for company registration?",
+                a: "No. Most Free Zone setups can be completed 100% remotely from India. Our team handles all documentation, submission, and approvals on your behalf. You only need to visit Dubai if you are applying for a UAE residency visa.",
+              },
+              {
+                q: "Can Indian nationals get UAE residency visa through business setup?",
+                a: "Yes. Setting up a business in Dubai under eligible packages entitles you to apply for an Investor or Partner Visa. This visa is valid for 2 years, can be renewed indefinitely, and allows you to sponsor your family members for residency as well.",
+              },
+              {
+                q: "Is UAE business setup possible for NRIs?",
+                a: "Absolutely. Non-Resident Indians (NRIs) and Indian citizens have full legal eligibility to establish Free Zone or Mainland companies in Dubai with 100% foreign ownership and full repatriation of capital and profits.",
+              },
+              {
+                q: "Can I open a UAE bank account from India?",
+                a: "Yes. While final bank account activation typically requires physical signature verification in Dubai (which can be completed during your visa trip), our team assists with all pre-approvals, documentation structuring, and banker meetings so that your bank account is processed smoothly.",
+              },
             ].map((item, idx) => (
               <div key={idx} className={`faq-item ${openFaqIndex === idx ? "open" : ""}`}>
                 <button className="faq-btn" onClick={() => toggleFaq(idx)} suppressHydrationWarning>
@@ -1600,9 +1708,6 @@ export default function Home() {
             <h4>Quick Links</h4>
             <ul className="footer-list-links">
               <li><a href="#">Privacy Policy</a></li>
-              <li><a href="#">Terms of Service</a></li>
-              <li><a href="#lead-form" onClick={handleEnquireClick}>Contact Us</a></li>
-              <li><a href="#lead-form" onClick={handleEnquireClick}>Get a Free Quote</a></li>
             </ul>
           </div>
 
@@ -1614,7 +1719,7 @@ export default function Home() {
               </svg>
               <div>
                 <strong>Call Us</strong>
-                <a href="tel:+971504486285">+971 50 448 6285</a>
+                <a href="tel:+971504486285" style={{ display: 'block' }}>🇦🇪 +971 50 448 6285</a>
               </div>
             </div>
             <div className="footer-contact-item">
@@ -1662,11 +1767,14 @@ export default function Home() {
             
             <div className="form-card">
               <div className="form-head">
+                <div style={{ fontSize: '13px', fontWeight: 'bold', color: '#F5BE54', marginBottom: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+                  🇮🇳 Calling from India? We&apos;re Here!
+                </div>
                 <h2>Get a Call Back Shortly!</h2>
                 <p>Fill in your details — our advisor responds within 30 mins</p>
               </div>
               <div className="form-urgency">
-                ⏱ &nbsp;Limited consultation slots available today
+                {urgencyText}
               </div>
 
               {!submitted ? (
@@ -1680,17 +1788,7 @@ export default function Home() {
                       value={fname}
                       onChange={(e) => setFname(e.target.value)}
                       required
-                    />
-                  </div>
-                  <div className="fgrp">
-                    <label htmlFor="modal-femail">Email Address</label>
-                    <input
-                      type="email"
-                      id="modal-femail"
-                      placeholder="E-mail"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      required
+                      suppressHydrationWarning
                     />
                   </div>
                   <div className="fgrp">
@@ -1698,40 +1796,55 @@ export default function Home() {
                     <input
                       type="tel"
                       id="modal-fphone"
-                      placeholder="+91 Your phone"
+                      placeholder="+91 (India) or +971 (UAE)"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
                       required
+                      suppressHydrationWarning
                     />
                   </div>
                   <div className="fgrp select-wrapper">
-                    <label htmlFor="modal-fpkg">Enquiry For</label>
+                    <label htmlFor="modal-fpkg">Select your Industry</label>
                     <select
                       id="modal-fpkg"
                       value={pkg}
                       onChange={(e) => setPkg(e.target.value)}
+                      required
+                      suppressHydrationWarning
                     >
-                      <option value="">Select a package...</option>
-                      <option value="Free Zone Starter">Free Zone Starter</option>
-                      <option value="Free Zone Plus">Free Zone Plus</option>
-                      <option value="Free Zone Premium">Free Zone Premium</option>
-                      <option value="Mainland Business Setup">Mainland Business Setup</option>
-                      <option value="Offshore Company Package">Offshore Company Package</option>
-                      <option value="Not sure – Need advice">Not sure – Need advice</option>
+                      <option value="">Select your Industry...</option>
+                      <option value="E-commerce & Online Selling">🛒 E-commerce & Online Selling</option>
+                      <option value="Trading / Import & Export">📦 Trading / Import & Export</option>
+                      <option value="IT & Technology">💻 IT & Technology</option>
+                      <option value="Consulting & Professional Services">🤝 Consulting & Professional Services</option>
+                      <option value="Real Estate">🏢 Real Estate</option>
+                      <option value="Restaurant & Food Business">🍽️ Restaurant & Food Business</option>
+                      <option value="Travel & Tourism">✈️ Travel & Tourism</option>
+                      <option value="Education & Training">🎓 Education & Training</option>
+                      <option value="Other – I'll explain below">📌 Other – I&apos;ll explain below</option>
                     </select>
                   </div>
-                  <div className="fgrp">
-                    <label htmlFor="modal-factivity">Your enquiry</label>
-                    <textarea
-                      id="modal-factivity"
-                      placeholder="Your enquiry"
-                      value={activity}
-                      onChange={(e) => setActivity(e.target.value)}
-                    />
-                  </div>
-                  <button type="submit" className="submit-btn" suppressHydrationWarning>
-                    Get a Free Quote &rarr;
+                  <button type="submit" className="submit-btn" disabled={isSubmitting} suppressHydrationWarning>
+                    {isSubmitting ? "Submitting..." : "Get a Free Quote →"}
                   </button>
+
+                  {/* WhatsApp CTA below Form */}
+                  <div className="form-whatsapp-cta" style={{ textAlign: "center", marginTop: "16px", fontSize: "13.5px" }}>
+                    <div style={{ color: "var(--grey-500)", marginBottom: "4px" }}>Prefer WhatsApp? Chat directly with our advisor &rarr;</div>
+                    <a 
+                      href="https://wa.me/971504486285?text=Hello%20AD%20Firms%2C%20I%20would%20like%20to%20enquire%20about%20business%20setup%20services%20in%20Dubai%2C%20UAE.%20Please%20provide%20more%20details." 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "6px", color: "#25D366", fontWeight: "700", textDecoration: "none" }}
+                    >
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a8.8 8.8 0 00-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
+                        <path d="M12 0C5.373 0 0 5.373 0 12c0 2.127.558 4.126 1.534 5.858L0 24l6.334-1.511A11.94 11.94 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.817 9.817 0 01-5.004-1.37l-.36-.213-3.76.896.955-3.648-.234-.376A9.793 9.793 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z" />
+                      </svg>
+                      +971 50 448 6285
+                    </a>
+                  </div>
+
                   <div className="form-privacy">
                     <svg width="12" height="12" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
                       <rect x="3" y="11" width="18" height="11" rx="2" />
