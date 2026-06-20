@@ -3048,3 +3048,14 @@ footer {
     color: #475569;
   }
 }
+
+/* Footer Address Hover */
+.footer-address-link {
+  transition: color 0.3s ease, text-decoration 0.3s ease;
+  text-decoration: none;
+  color: inherit;
+}
+.footer-address-link:hover {
+  color: var(--accent-lt);
+  text-decoration: underline;
+}

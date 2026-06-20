@@ -348,8 +348,7 @@ export default function Home() {
   };
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
-  const [countryCode, setCountryCode] = useState("+971");
-  const [phone, setPhone] = useState("");
+  const [phone, setPhone] = useState("+91 ");
   const [pkg, setPkg] = useState("");
   const [visas, setVisas] = useState("");
   const [activity, setActivity] = useState("");
@@ -358,15 +357,6 @@ export default function Home() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const [urgencyText, setUrgencyText] = useState("⏱  Limited consultation slots available today");
-
-  useEffect(() => {
-    const today = new Date().toLocaleDateString('en-IN', {
-      day: 'numeric',
-      month: 'long'
-    });
-    setUrgencyText(`⏱  Only 3 consultation slots left today — ${today}`);
-  }, []);
 
   const [currentPkgIndex, setCurrentPkgIndex] = useState(0); // Default to Free Zone Starter (index 0)
 
@@ -600,6 +590,7 @@ export default function Home() {
       return;
     }
 
+    const countryCode = '+91';
     let finalPhone = phone.trim();
     if (finalPhone.startsWith(countryCode)) {
       finalPhone = finalPhone.substring(countryCode.length).trim();
@@ -887,9 +878,6 @@ export default function Home() {
                 <h2>Get a Call Back Shortly!</h2>
                 <p>Fill in your details — our advisor responds within 30 mins</p>
               </div>
-              <div className="form-urgency" id="urgency-text">
-                {urgencyText}
-              </div>
 
               {!submitted ? (
                 <form className="form-body" onSubmit={handleFormSubmit}>
@@ -907,28 +895,15 @@ export default function Home() {
                   </div>
                   <div className="fgrp">
                     <label htmlFor="fphone">Phone / WhatsApp</label>
-                    <div style={{ display: "flex", gap: "12px", alignItems: "flex-end" }}>
-                      <div className="select-wrapper" style={{ width: "100px", flexShrink: 0 }}>
-                        <select 
-                          value={countryCode} 
-                          onChange={(e) => setCountryCode(e.target.value)}
-                          suppressHydrationWarning
-                        >
-                          <option value="+91">IN +91</option>
-                          <option value="+971">AE +971</option>
-                        </select>
-                      </div>
-                      <input
-                        type="tel"
-                        id="fphone"
-                        placeholder="+91 (India) or +971 (UAE)"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                        suppressHydrationWarning
-                        style={{ flex: 1 }}
-                      />
-                    </div>
+                    <input
+                      type="tel"
+                      id="fphone"
+                      placeholder="+91 Mobile Number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                      suppressHydrationWarning
+                    />
                   </div>
                   <div className="fgrp select-wrapper">
                     <label htmlFor="fpkg">Select your Industry</label>
@@ -1738,7 +1713,9 @@ export default function Home() {
               </svg>
               <div>
                 <strong>Visit Us</strong>
-                <span>Al Karama, Dubai, UAE</span>
+                <a href="https://www.google.com/maps/place/AD+Firms+Business+Services/@25.244298,55.310699,2521m/data=!3m1!1e3!4m6!3m5!1s0x3e5f434a208f01ab:0x54745d0b4ec9fde6!8m2!3d25.2505286!4d55.3102115!16s%2Fg%2F11vwnj44yn?entry=ttu&g_ep=EgoyMDI2MDYxNi4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" className="footer-address-link" style={{ display: 'block', lineHeight: 1.5 }}>
+                  Credence Building | Office 40, Near Al Wasl University 11 3B - 2nd Zaa'beel St - | - Dubai - United Arab Emirates
+                </a>
               </div>
             </div>
           </div>
@@ -1773,9 +1750,6 @@ export default function Home() {
                 <h2>Get a Call Back Shortly!</h2>
                 <p>Fill in your details — our advisor responds within 30 mins</p>
               </div>
-              <div className="form-urgency">
-                {urgencyText}
-              </div>
 
               {!submitted ? (
                 <form className="form-body" onSubmit={handleFormSubmit}>
@@ -1793,28 +1767,15 @@ export default function Home() {
                   </div>
                   <div className="fgrp">
                     <label htmlFor="modal-fphone">Phone / WhatsApp</label>
-                    <div style={{ display: "flex", gap: "12px", alignItems: "flex-end" }}>
-                      <div className="select-wrapper" style={{ width: "100px", flexShrink: 0 }}>
-                        <select 
-                          value={countryCode} 
-                          onChange={(e) => setCountryCode(e.target.value)}
-                          suppressHydrationWarning
-                        >
-                          <option value="+91">IN +91</option>
-                          <option value="+971">AE +971</option>
-                        </select>
-                      </div>
-                      <input
-                        type="tel"
-                        id="modal-fphone"
-                        placeholder="+91 (India) or +971 (UAE)"
-                        value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        required
-                        suppressHydrationWarning
-                        style={{ flex: 1 }}
-                      />
-                    </div>
+                    <input
+                      type="tel"
+                      id="modal-fphone"
+                      placeholder="+91 Mobile Number"
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
+                      required
+                      suppressHydrationWarning
+                    />
                   </div>
                   <div className="fgrp select-wrapper">
                     <label htmlFor="modal-fpkg">Select your Industry</label>
