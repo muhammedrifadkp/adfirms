@@ -350,6 +350,7 @@ export default function Home() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("+91 ");
   const [pkg, setPkg] = useState("");
+  const [otherIndustry, setOtherIndustry] = useState("");
   const [visas, setVisas] = useState("");
   const [activity, setActivity] = useState("");
   const [timeline, setTimeline] = useState("");
@@ -608,7 +609,7 @@ export default function Home() {
         body: JSON.stringify({
           fname,
           phone: finalPhone,
-          pkg,
+          pkg: pkg === "Other – I'll explain below" ? `Other: ${otherIndustry}` : pkg,
         }),
       });
 
@@ -915,17 +916,31 @@ export default function Home() {
                       suppressHydrationWarning
                     >
                       <option value="">Select your Industry...</option>
-                      <option value="E-commerce & Online Selling">🛒 E-commerce & Online Selling</option>
-                      <option value="Trading / Import & Export">📦 Trading / Import & Export</option>
-                      <option value="IT & Technology">💻 IT & Technology</option>
-                      <option value="Consulting & Professional Services">🤝 Consulting & Professional Services</option>
-                      <option value="Real Estate">🏢 Real Estate</option>
-                      <option value="Restaurant & Food Business">🍽️ Restaurant & Food Business</option>
-                      <option value="Travel & Tourism">✈️ Travel & Tourism</option>
-                      <option value="Education & Training">🎓 Education & Training</option>
-                      <option value="Other – I'll explain below">📌 Other – I&apos;ll explain below</option>
+                      <option value="E-commerce & Online Selling">E-commerce & Online Selling</option>
+                      <option value="Trading / Import & Export">Trading / Import & Export</option>
+                      <option value="IT & Technology">IT & Technology</option>
+                      <option value="Consulting & Professional Services">Consulting & Professional Services</option>
+                      <option value="Real Estate">Real Estate</option>
+                      <option value="Restaurant & Food Business">Restaurant & Food Business</option>
+                      <option value="Travel & Tourism">Travel & Tourism</option>
+                      <option value="Education & Training">Education & Training</option>
+                      <option value="Other – I'll explain below">Other – I&apos;ll explain below</option>
                     </select>
                   </div>
+                  {pkg === "Other – I'll explain below" && (
+                    <div className="fgrp">
+                      <label htmlFor="otherIndustry">Please specify your industry</label>
+                      <input
+                        type="text"
+                        id="otherIndustry"
+                        placeholder="Your industry"
+                        value={otherIndustry}
+                        onChange={(e) => setOtherIndustry(e.target.value)}
+                        required
+                        suppressHydrationWarning
+                      />
+                    </div>
+                  )}
                   <button type="submit" className="submit-btn" disabled={isSubmitting} suppressHydrationWarning>
                     {isSubmitting ? "Submitting..." : "Get a Free Quote →"}
                   </button>
@@ -1787,17 +1802,31 @@ export default function Home() {
                       suppressHydrationWarning
                     >
                       <option value="">Select your Industry...</option>
-                      <option value="E-commerce & Online Selling">🛒 E-commerce & Online Selling</option>
-                      <option value="Trading / Import & Export">📦 Trading / Import & Export</option>
-                      <option value="IT & Technology">💻 IT & Technology</option>
-                      <option value="Consulting & Professional Services">🤝 Consulting & Professional Services</option>
-                      <option value="Real Estate">🏢 Real Estate</option>
-                      <option value="Restaurant & Food Business">🍽️ Restaurant & Food Business</option>
-                      <option value="Travel & Tourism">✈️ Travel & Tourism</option>
-                      <option value="Education & Training">🎓 Education & Training</option>
-                      <option value="Other – I'll explain below">📌 Other – I&apos;ll explain below</option>
+                      <option value="E-commerce & Online Selling">E-commerce & Online Selling</option>
+                      <option value="Trading / Import & Export">Trading / Import & Export</option>
+                      <option value="IT & Technology">IT & Technology</option>
+                      <option value="Consulting & Professional Services">Consulting & Professional Services</option>
+                      <option value="Real Estate">Real Estate</option>
+                      <option value="Restaurant & Food Business">Restaurant & Food Business</option>
+                      <option value="Travel & Tourism">Travel & Tourism</option>
+                      <option value="Education & Training">Education & Training</option>
+                      <option value="Other – I'll explain below">Other – I&apos;ll explain below</option>
                     </select>
                   </div>
+                  {pkg === "Other – I'll explain below" && (
+                    <div className="fgrp">
+                      <label htmlFor="modal-otherIndustry">Please specify your industry</label>
+                      <input
+                        type="text"
+                        id="modal-otherIndustry"
+                        placeholder="Your industry"
+                        value={otherIndustry}
+                        onChange={(e) => setOtherIndustry(e.target.value)}
+                        required
+                        suppressHydrationWarning
+                      />
+                    </div>
+                  )}
                   <button type="submit" className="submit-btn" disabled={isSubmitting} suppressHydrationWarning>
                     {isSubmitting ? "Submitting..." : "Get a Free Quote →"}
                   </button>
