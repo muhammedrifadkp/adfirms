@@ -357,6 +357,7 @@ export default function Home() {
   const [submitted, setSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [formError, setFormError] = useState("");
 
 
   const [currentPkgIndex, setCurrentPkgIndex] = useState(0); // Default to Free Zone Starter (index 0)
@@ -586,8 +587,9 @@ export default function Home() {
   // Form submit handler
   const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setFormError("");
     if (!fname || !phone) {
-      alert("Please fill in your name and phone number.");
+      setFormError("Please fill in your name and phone number.");
       return;
     }
 
@@ -596,6 +598,19 @@ export default function Home() {
     if (finalPhone.startsWith(countryCode)) {
       finalPhone = finalPhone.substring(countryCode.length).trim();
     }
+    
+    const isInternational = finalPhone.startsWith('+');
+    const digitsOnly = finalPhone.replace(/\D/g, '');
+
+    if (!isInternational && digitsOnly.length !== 10) {
+      setFormError("Please enter a valid 10-digit phone number.");
+      return;
+    }
+    if (isInternational && digitsOnly.length < 7) {
+      setFormError("Please enter a valid phone number.");
+      return;
+    }
+
     finalPhone = finalPhone.startsWith('+') ? finalPhone : `${countryCode} ${finalPhone}`;
 
     setIsSubmitting(true);
@@ -621,14 +636,14 @@ export default function Home() {
         setSubmitted(true);
       } else {
         console.error("Submission failed:", data.errors || data.error);
-        alert(
+        setFormError(
           data.error || 
           "Failed to submit your request. However, our WhatsApp is active. Please click the WhatsApp button to contact us directly!"
         );
       }
     } catch (error) {
       console.error("Submission error:", error);
-      alert(
+      setFormError(
         "A connection error occurred. However, our WhatsApp is active. Please click the WhatsApp link to chat with us!"
       );
     } finally {
@@ -867,6 +882,12 @@ export default function Home() {
 
               {!submitted ? (
                 <form className="form-body" onSubmit={handleFormSubmit}>
+                  {formError && (
+                    <div className="form-error-alert" style={{ backgroundColor: '#fee2e2', color: '#b91c1c', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                      {formError}
+                    </div>
+                  )}
                   <div className="fgrp">
                     <label htmlFor="fname">Full Name</label>
                     <input
@@ -1753,6 +1774,12 @@ export default function Home() {
 
               {!submitted ? (
                 <form className="form-body" onSubmit={handleFormSubmit}>
+                  {formError && (
+                    <div className="form-error-alert" style={{ backgroundColor: '#fee2e2', color: '#b91c1c', padding: '12px', borderRadius: '8px', marginBottom: '16px', fontSize: '14px', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>
+                      {formError}
+                    </div>
+                  )}
                   <div className="fgrp">
                     <label htmlFor="modal-fname">Full Name</label>
                     <input
