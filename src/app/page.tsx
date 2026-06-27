@@ -1545,26 +1545,91 @@ export default function Home() {
       {/* DOCUMENTS */}
       <section className="section">
         <div className="sec-tag">Requirements</div>
-        <h2 className="sec-h2">Documents Needed for Company Registration</h2>
-        <p className="sec-sub">Simple documentation requirements — our team guides you through every step.</p>
+        <h2 className="sec-h2">What You Need for Company Registration</h2>
+        <p className="sec-sub">Everything required to start your company registration — clearly organized for individuals and corporate shareholders.</p>
         <div className="docs-grid">
-          <div className="doc-box">
-            <div className="doc-box-title"><span className="doc-box-icon">👤</span> For Individual Shareholders</div>
+          <div className="doc-box individual-box">
+            <div className="doc-box-header">
+              <div className="doc-box-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="doc-box-svg">
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                  <circle cx="12" cy="7" r="4" />
+                </svg>
+              </div>
+              <h3 className="doc-box-title">For Individual Shareholders</h3>
+            </div>
             <ul className="doc-list">
-              <li>Passport Copy</li>
-              <li>Passport Size Photo</li>
-              <li>UAE Visa Copy (If Applicable)</li>
-              <li>Emirates ID Copy (If Applicable)</li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Passport Copy</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Passport Size Photo</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>UAE Visa Copy (If Applicable)</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Emirates ID Copy (If Applicable)</span>
+              </li>
             </ul>
           </div>
-          <div className="doc-box">
-            <div className="doc-box-title"><span className="doc-box-icon">🏢</span> For Corporate Shareholders</div>
+          <div className="doc-box corporate-box">
+            <div className="doc-box-header">
+              <div className="doc-box-icon-wrap">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="doc-box-svg">
+                  <rect x="4" y="2" width="16" height="20" rx="2" ry="2" />
+                  <line x1="9" y1="22" x2="9" y2="16" />
+                  <line x1="15" y1="22" x2="15" y2="16" />
+                  <line x1="9" y1="16" x2="15" y2="16" />
+                  <path d="M9 6h6" />
+                  <path d="M9 10h6" />
+                </svg>
+              </div>
+              <h3 className="doc-box-title">For Corporate Shareholders</h3>
+            </div>
             <ul className="doc-list">
-              <li>Certificate of Incorporation</li>
-              <li>Memorandum of Association</li>
-              <li>Board Resolution</li>
-              <li>Shareholder Documents</li>
-              <li>Corporate Registration Certificates</li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Certificate of Incorporation</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Memorandum of Association</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Board Resolution</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Shareholder Documents</span>
+              </li>
+              <li>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="doc-check-icon">
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+                <span>Corporate Registration Certificates</span>
+              </li>
             </ul>
           </div>
         </div>
